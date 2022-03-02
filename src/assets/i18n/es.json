@@ -1,0 +1,18 @@
+{
+    "GLOBAL.USER": "Usuario",
+    "GLOBAL.USERS": "Usuarios",
+    "GLOBAL.PHONE": "Teléfono",
+    "GLOBAL.PHONE_": "Teléfonos",
+    "GLOBAL.ADD": "Añadir",
+    "GLOBAL.PASSWORD": "Contraseña",
+    "GLOBAL.PASSWORD_CHANGE": "Cambiar contraseña",
+    "GLOBAL.NEW_PASSWORD": "Nueva contraseña",
+    "GLOBAL.ID": "ID",
+    "GLOBAL.UBICATION": "Ubicación",
+    "GLOBAL.NEW": "Nuevo",
+    "GLOBAL.EDIT": "Editar",
+    "GLOBAL.MORE": "Mas...",
+    "GLOBAL.SEARCH": "Buscar",
+    "GLOBAL.RESET": "Reiniciar",
+    "HOME.TITLE": "X OLIMPIADA INFORMÁTICA DE EXTREMADURA"
+}
