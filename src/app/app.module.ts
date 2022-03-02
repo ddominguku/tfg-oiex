@@ -18,6 +18,8 @@ import { ConfirmationService } from 'primeng/api';
 
 import { AppComponent } from './app.component';
 import { ThemeModule } from './modules/theme.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -34,12 +36,14 @@ import { ThemeModule } from './modules/theme.module';
         ToolbarModule,
         ConfirmDialogModule,
         RatingModule,
+        RouterModule,
         InputNumberModule,
         InputTextareaModule,
         RadioButtonModule,
         DropdownModule,
         ButtonModule,
-        ThemeModule
+        ThemeModule,
+        AppRoutingModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]
