@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { environment } from "../../../../environments/environment";
 
 @Component({
-  selector: 'app-calendario-page',
-  templateUrl: './calendario-page.component.html',
-  styleUrls: ['./calendario-page.component.css']
+  selector: "app-calendario-page",
+  templateUrl: "./calendario-page.component.html",
+  styleUrls: ["./calendario-page.component.css"],
 })
 export class CalendarioPageComponent implements OnInit {
 
-  constructor() { }
+  public QRCode: string = environment.images.qr_code;
 
-  ngOnInit(): void {
-  }
+  constructor() {}
 
+  ngOnInit(): void {}
 }
