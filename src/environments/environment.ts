@@ -14,7 +14,8 @@ export const environment = {
   },
 
   images: {
-    header: 'assets/images/cabecera-oiex.jpg'
+    header: 'assets/images/cabecera-oiex.jpg',
+    qr_code: 'assets/images/CodigoQR_2022.png'
   }
 };
 
