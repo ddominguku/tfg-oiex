@@ -7,16 +7,73 @@ export const environment = {
   app_name: "OIEX",
 
   apis: {
-    suia: {
-      baseUrl: "http://localhost:4200/oiexback",
-      endpoints: {},
-    },
-  },
+    oiex: {
+      baseUrl: 'http://localhost:8080/api',
+      endpoints: {
+        person: '/person',
+        award: '/award',
+        patrocinadores: '/patrocinadores',
+        //usersDashboards: '/dashboards',
+      },
+    }},
 
   images: {
-    header: 'assets/images/cabecera-oiex.jpg',
-    qr_code: 'assets/images/CodigoQR_2022.png'
-  }
+    header: "assets/images/cabecera-oiex.jpg",
+    qr_code: "assets/images/CodigoQR_2022.png",
+    carousel_1: "assets/images/carousel_1.jpg",
+    carousel_2: "assets/images/carousel_2.jpg",
+    carousel_3: "assets/images/carousel_3.jpg",
+    registro: "assets/images/registro.jpg",
+    login: "assets/images/login.jpg",
+    ipad: "assets/images/ipad.jpg",
+  },
+
+  calendar_locale: {
+    es: {
+      firstDayOfWeek: 1,
+      dayNames: [
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+      ],
+      dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+      dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+      monthNames: [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ],
+      monthNamesShort: [
+        "ene",
+        "feb",
+        "mar",
+        "abr",
+        "may",
+        "jun",
+        "jul",
+        "ago",
+        "sep",
+        "oct",
+        "nov",
+        "dic",
+      ],
+      today: "Hoy",
+      clear: "Borrar",
+    },
+  },
 };
 
 /*

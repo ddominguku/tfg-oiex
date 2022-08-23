@@ -1,6 +1,4 @@
 <p-menubar [model]="items">
-    <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Buscar..." />
-    </span>
+    <the-button *ngIf="visible" [label]="'GLOBAL.LOG_IN' | translate" (onClick)="navigateToSigIn()"></the-button>
+    <p-splitButton *ngIf="!visible" icon="pi pi-user" [model]="itemsMyCount"></p-splitButton>
 </p-menubar>

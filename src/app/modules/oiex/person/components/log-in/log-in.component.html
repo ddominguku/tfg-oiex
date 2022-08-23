@@ -1,0 +1,29 @@
+<div class="grid justify-content-center">
+    <img [src]="imgLogin" alt="imagen login" class="imgLogin" />
+</div>
+<p-panel [header]="'GLOBAL.LOG_IN' | translate | uppercase">
+    <div class="grid formgrid p-fluid">
+        <div class="col-12 p-1 field">
+            <span class="p-input-icon-left">
+                    <i class="pi pi-user"></i>
+                    <input type="email" pInputText [placeholder]="'GLOBAL.EMAIL' | translate" [(ngModel)]="loginUser.email" />
+                </span>
+        </div>
+        <div class="col-12 p-1 field">
+            <span class="p-input-icon-left">
+                <i class="pi pi-key"></i>
+                <input type="password" pInputText [placeholder]="'GLOBAL.PASSWORD' | translate" [(ngModel)]="loginUser.password" />
+            </span>
+        </div>
+        <div class="col-12 p-1 align-center">
+            <the-button [label]="'GLOBAL.ENTER' | translate" (onClick)="logIn()"></the-button>
+        </div>
+        <div class="col-12 p-1 align-center">
+            <a href="">¿Olvidaste la contraseña?</a>
+            <!--TODO Implementar esto-->
+        </div>
+        <div class="col-12 p-1 align-center">
+            <p (click)="showRegister()">Crear Cuenta</p>
+        </div>
+    </div>
+</p-panel>

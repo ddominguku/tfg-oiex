@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: "the-menu-item",
@@ -11,9 +13,12 @@ export class MenuItemComponent implements OnInit {
   public valueSearch: String;
   
   items: MenuItem[];
+  itemsMyCount:MenuItem[];
+
+   @Input() visible = true;
 
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.initBar();
@@ -28,12 +33,12 @@ export class MenuItemComponent implements OnInit {
       },
       {
         label: "Inscripciones",
-        icon: "pi pi-envelope",
+        icon: "fa fa-solid fa-address-card",
         routerLink: '/inscripciones',
       },
       {
         label: "Preparación",
-        icon: "pi pi-reddit",
+        icon: "fa fa-solid fa-lines-leaning",
         routerLink: '/preparacion',
       },
       {
@@ -48,14 +53,44 @@ export class MenuItemComponent implements OnInit {
       },
       {
         label: "Premios",
-        icon: "pi pi-pound",
+        icon: "fa-solid fa-trophy",
         routerLink: '/premios',
       },
       {
         label: "Enlaces de Interés",
-        icon: "pi-external-link",
+        icon: "fa fa-solid fa-link",
         routerLink: '/enlaces',
       },
+      {
+        label: "Patrocinadores",
+        icon: "fa <i fa-solid fa-square-parking",
+        routerLink: '/patrocinadores',
+      },
+      {
+        label: "FAQ",
+        icon: "fa fa-solid fa-clipboard-question",
+        routerLink: '/faq',
+      },
+      
+    ];
+
+    this.itemsMyCount = [
+      {
+        label: "Administrar cuenta",
+        routerLink: '/manage-account',
+      },
+      {
+        label: "Cambiar Contraseña",
+        routerLink: '/change-password',
+      },
+      
     ];
   }
+
+  /**
+   * @description: enlaza con pagina de iniciar sesión
+   */
+   public navigateToSigIn():void {
+    this.router.navigateByUrl('/iniciar-sesion');
+    }
 }

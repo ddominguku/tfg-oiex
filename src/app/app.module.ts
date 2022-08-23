@@ -16,6 +16,7 @@ import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
 
+
 import { AppComponent } from './app.component';
 import { ThemeModule } from './modules/theme.module';
 import { RouterModule } from '@angular/router';
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 
 @NgModule({
     declarations: [
