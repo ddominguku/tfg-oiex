@@ -2,8 +2,30 @@
     <div class="col-8">
         <h1>{{ "AWARDS.TITLE" | translate }}</h1>
     </div>
+    <div class="col-10">
+        <p-table [value]="awards">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-award>
+                <tr>
+                    <td *ngFor="let col of cols">
+                        <img *ngIf="col.field == 'imagen'" [src]=award[col.field] alt="imagen login" class="imgLogin" />
+                        <p *ngIf="col.field != 'imagen'">{{award[col.field]}}</p>
+                    </td>
+                </tr>
+            </ng-template>
 
-    <div class="col-8">
+        </p-table>
+        <h3> **Además, en todas las ediciones, los participantes y sus profesores acompañantes reciben una camiseta**</h3>
+
+    </div>
+
+    <!--<div class="col-8">
         <p>
             Habitualmente los premios están relacionados con la tecnología. Para la edición de este año ya tenemos los premios a los ganadores:
         </p>
@@ -23,5 +45,5 @@
         <p>
             Además, en todas las ediciones, los participantes y sus profesores acompañantes reciben una camiseta de recuerdo.
         </p>
-    </div>
+    </div>-->
 </div>

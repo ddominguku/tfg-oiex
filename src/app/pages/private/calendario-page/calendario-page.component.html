@@ -1,6 +1,14 @@
+<!--<div class="grid">-->
+<h1>{{ "CALENDAR.TITLE" | translate }}</h1>
+
 <div class="grid justify-content-center">
     <div class="col-8">
-        <h1>{{ "CALENDAR.TITLE" | translate }}</h1>
+        <full-calendar deepChangeDetection="true" [options]="calendarOptions" locale="es"></full-calendar>
+    </div>
+</div>
+
+<!--<div class="col-8">
+        
     </div>
 
     <div class="col-8">
@@ -35,6 +43,6 @@
         </p>
         <p>o en el siguiente Código QR:</p>
         <p><img [src]="QRCode" alt="imagen codigo QR" /></p>
-    </div>
+    </div>-->
 
-</div>
+<!--</div>-->

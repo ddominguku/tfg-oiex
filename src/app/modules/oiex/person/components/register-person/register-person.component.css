@@ -1,0 +1,20 @@
+.align-center {
+    text-align: center;
+}
+
+.imgRegister {
+    width: 400px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+p {
+    color: green;
+    text-decoration: underline green;
+}
+
+p:active,
+p:hover {
+    color: green;
+    cursor: pointer;
+}
