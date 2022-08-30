@@ -1,0 +1,16 @@
+<div class="grid justify-content-center card">
+    <h1>{{ "NORMATIVE.TITLE" | translate }}</h1>
+</div>
+
+<div class="grid justify-content-center card">
+    <div class="col-8">
+        <p-tabView *ngFor="let normative of normativeList">
+            <p-tabPanel [header]="normative.name">
+                {{ normative.description }}
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>
+<div class="grid justify-content-end card">
+    <the-button icon="pi pi-sign-in" (onClick)="navigateToSigIn()"></the-button>
+</div>

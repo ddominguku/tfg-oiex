@@ -1,4 +1,5 @@
-<p-menubar [model]="items">
-    <the-button *ngIf="visible" [label]="'GLOBAL.LOG_IN' | translate" (onClick)="navigateToSigIn()"></the-button>
-    <p-splitButton *ngIf="!visible" icon="pi pi-user" [model]="itemsMyCount"></p-splitButton>
+<p-menubar *ngIf="visiblePublic" [model]="items">
+</p-menubar>
+
+<p-menubar *ngIf="visiblePrivate" [model]="itemsAdmin">
 </p-menubar>

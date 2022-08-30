@@ -5,49 +5,42 @@ const routes: Routes = [
   {
     path: "calendario",
     loadChildren: () =>
-      import("./pages/private/calendario-page/calendario-page.module").then(
+      import("./pages/public/calendario-page/calendario-page.module").then(
         (m) => m.CalendarioPageModule
       ),
   },
   {
     path: "enlaces",
     loadChildren: () =>
-      import("./pages/private/enlaces-page/enlaces-page.module").then(
+      import("./pages/public/enlaces-page/enlaces-page.module").then(
         (m) => m.EnlacesPageModule
       ),
   },
   {
     path: "inicio",
     loadChildren: () =>
-      import("./pages/private/inicio-page/inicio-page.module").then(
+      import("./pages/public/inicio-page/inicio-page.module").then(
         (m) => m.InicioPageModule
       ),
   },
   {
-    path: "inscripciones",
-    loadChildren: () =>
-      import(
-        "./pages/private/inscripciones-page/inscripciones-page.module"
-      ).then((m) => m.InscripcionesPageModule),
-  },
-  {
     path: "premios",
     loadChildren: () =>
-      import("./pages/private/premios-page/premios-page.module").then(
+      import("./pages/public/premios-page/premios-page.module").then(
         (m) => m.PremiosPageModule
       ),
   },
   {
     path: "preparacion",
     loadChildren: () =>
-      import("./pages/private/preparacion-page/preparacion-page.module").then(
+      import("./pages/public/preparacion-page/preparacion-page.module").then(
         (m) => m.PreparacionPageModule
       ),
   },
   {
     path: "normativa",
     loadChildren: () =>
-      import("./pages/private/normativa-page/normativa-page.module").then(
+      import("./pages/public/normativa-page/normativa-page.module").then(
         (m) => m.NormativaPageModule
       ),
   },
@@ -56,6 +49,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./pages/public/log-in-page/log-in-page.module").then(
         (m) => m.LogInPageModule
+      ),
+  },
+  {
+    path: "registro",
+    loadChildren: () =>
+      import("./pages/public/register-page/register-page.module").then(
+        (m) => m.RegisterPageModule
       ),
   },
   {
@@ -68,16 +68,30 @@ const routes: Routes = [
   {
     path: "administrar-cuenta",
     loadChildren: () =>
-      import(
-        "./pages/private/aministrar-cuenta-page/aministrar-cuenta-page.module"
-      ).then((m) => m.AministrarCuentaPageModule),
+      import("./pages/private/aministrar-cuenta-page/admin-page.module").then(
+        (m) => m.AdminPageModule
+      ),
   },
   {
     path: "patrocinadores",
     loadChildren: () =>
+      import("./pages/public/sponsor-page/sponsor-page.module").then(
+        (m) => m.PatrocinadoresPageModule
+      ),
+  },
+  {
+    path: "admin/inicio",
+    loadChildren: () =>
+      import("./pages/private/home-admin-page/home-admin-page.module").then(
+        (m) => m.HomeAdminPageModule
+      ),
+  },
+  {
+    path: "admin/normativa",
+    loadChildren: () =>
       import(
-        "./pages/public/patrocinadores-page/patrocinadores-page.module"
-      ).then((m) => m.PatrocinadoresPageModule),
+        "./pages/private/normative-admin-page/normative-admin-page.module"
+      ).then((m) => m.NormativeAdminPageModule),
   },
   { path: "**", redirectTo: "inicio" },
 ];

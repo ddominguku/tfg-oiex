@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { environment } from "../../../../../../environments/environment";
 import { PersonModel } from "../../models/person.model";
 import { PersonService } from "../../services/person.service";
@@ -9,11 +9,10 @@ import { PersonService } from "../../services/person.service";
   styleUrls: ["./register-person.component.css"],
 })
 export class RegisterPersonComponent implements OnInit {
-  @Output() propagateActivateSigIn = new EventEmitter<Boolean>();
   public imgRegister: String = environment.images.registro;
   public personRegister: PersonModel = new PersonModel();
   public passwordRepeat = '';
-  private alive = true;
+
 
   constructor(private personService: PersonService) {}
 
@@ -29,11 +28,6 @@ export class RegisterPersonComponent implements OnInit {
       .createPerson(this.personRegister)
       .subscribe((personReturn: PersonModel) => {
         this.personRegister = personReturn;
-        //console.log(this.personRegister);
       });
-  }
-
-  public activateSigIn(): void {
-    this.propagateActivateSigIn.emit(true);
   }
 }

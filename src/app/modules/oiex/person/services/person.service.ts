@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { PersonModel } from "../models/person.model";
 import { HttpClient } from "@angular/common/http";
+import { AdminModel } from "../models/admin.model";
 
 @Injectable({
   providedIn: "root",
@@ -39,14 +40,14 @@ export class PersonService {
 
   /**
    * @description Hace login de usuario
-   * @param {PersonModel} person para logear
-   * @returns {Observable<PersonModel>}
+   * @param {AdminModel} admin para logear
+   * @returns {Observable<AdminModel>}
    * @memberof PersonService
    */
-   public loginPerson(person: PersonModel): Observable<PersonModel> {
-    return this.httpClient.post<PersonModel>(
-      `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.person}/login`,
-      person
+  public loginAdmin(admin: AdminModel): Observable<AdminModel> {
+    return this.httpClient.post<AdminModel>(
+      `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.person}/admin/login`,
+      admin
     );
   }
 

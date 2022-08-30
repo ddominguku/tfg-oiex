@@ -21,7 +21,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {TableModule} from 'primeng/table';
 import {FieldsetModule} from 'primeng/fieldset';
-import {TimelineModule} from 'primeng/timeline';
+import {TabViewModule} from 'primeng/tabview';
+import {ImageModule} from 'primeng/image';
+import {DialogModule} from 'primeng/dialog';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ToastModule} from 'primeng/toast';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -50,7 +57,16 @@ import {TimelineModule} from 'primeng/timeline';
     FontAwesomeModule,
     TableModule,
     FieldsetModule,
-    TimelineModule
+    TabViewModule,
+    ImageModule,
+    DialogModule,
+    PanelMenuModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    ToastModule,
+    InputTextareaModule,
+    InputTextModule,
+    InputNumberModule
   ],
   exports: [
     MainLayoutComponent,
@@ -63,7 +79,16 @@ import {TimelineModule} from 'primeng/timeline';
     CalendarComponent,
     FormsModule,
     TableModule,
-    TimelineModule
+    TabViewModule,
+    ImageModule,
+    DialogModule,
+    PanelMenuModule,
+    ToolbarModule,
+    ConfirmDialogModule,
+    ToastModule,
+    InputTextareaModule,
+    InputTextModule,
+    InputNumberModule
   ],
 })
 export class ThemeModule {}

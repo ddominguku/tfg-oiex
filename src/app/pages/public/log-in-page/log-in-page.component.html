@@ -1,8 +1,5 @@
 <div class="grid justify-content-center">
-    <div *ngIf="visibleSignIn" class="col-8 p-4">
-        <app-log-in (propagateActivateRegister)="activateRegister($event)"></app-log-in>
-    </div>
-    <div *ngIf="visibleRegister" class="col-8 p-4">
-        <app-register-person (propagateActivateSigIn)="activateSigIn($event)"></app-register-person>
+    <div class="col-4 p-4">
+        <app-log-in></app-log-in>
     </div>
 </div>

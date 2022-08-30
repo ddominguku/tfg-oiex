@@ -1,43 +1,34 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { PersonModel } from '../../models/person.model';
-import { PersonService } from '../../services/person.service';
+import { Component, EventEmitter, Output, OnInit } from "@angular/core";
+import { environment } from "src/environments/environment";
+import { AdminModel } from "../../models/admin.model";
+import { PersonModel } from "../../models/person.model";
+import { PersonService } from "../../services/person.service";
 
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css']
+  selector: "app-log-in",
+  templateUrl: "./log-in.component.html",
+  styleUrls: ["./log-in.component.css"],
 })
 export class LogInComponent implements OnInit {
-
   @Output() propagateActivateRegister = new EventEmitter<Boolean>();
   public imgLogin: String = environment.images.login;
-  public loginUser: PersonModel = new PersonModel();
+  public adminLogin: AdminModel = new AdminModel();
 
-  constructor(private personService: PersonService) { }
+  constructor(private personService: PersonService) {}
 
   ngOnInit(): void {
-      this.loginUser= new PersonModel();
+    this.adminLogin = new AdminModel();
   }
 
   /**
    * @description: Inicia sesión
    */
-  public logIn():void {
-    this.loginUser.center = "Centro 1";
-    this.loginUser.lastname1 = "Apellido 1";
-    this.loginUser.lastname2 = "Apellido 2";
-    this.loginUser.name = "Nombre";
-    this.loginUser.phone = 978445;
+  public logIn(): void {
     this.personService
-      .loginPerson(this.loginUser)
-      .subscribe((personReturn: PersonModel) => {
-        this.loginUser = personReturn;
-        console.log(this.loginUser);
+      .loginAdmin(this.adminLogin)
+      .subscribe((adminReturn: AdminModel) => {
+        this.adminLogin = adminReturn;
+        console.log(this.adminLogin);
       });
-  }
-
-  public showRegister(): void{
-    this.propagateActivateRegister.emit(true);
   }
 }

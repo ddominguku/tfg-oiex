@@ -1,51 +1,43 @@
 <div class="grid justify-content-center">
     <img [src]="imgRegister" alt="imagen registro" class="imgRegister" />
 </div>
-<p-panel header="FORMULARIO DE REGISTRO" *ngIf="personRegister">
-    <div class="grid formgrid p-fluid">
-        <div class="col-12 p-1 field">
-            <label for="name" class="block">{{'GLOBAL.NAME' | translate}}</label>
-            <input id="name" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText [(ngModel)]="personRegister.name" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="lastname1" class="block">{{'GLOBAL.LASTNAME1' | translate}}</label>
-            <input id="lastname1" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME1' | translate" pInputText [(ngModel)]="personRegister.lastname1" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="lastname2" class="block">{{'GLOBAL.LASTNAME2' | translate}}</label>
-            <input id="lastname2" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME2' | translate" pInputText [(ngModel)]="personRegister.lastname2" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="email" class="block">{{'GLOBAL.EMAIL' | translate}}</label>
-            <input id="email" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.EMAIL' | translate" pInputText [(ngModel)]="personRegister.email" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="password" class="block">{{'GLOBAL.PASSWORD' | translate}}</label>
-            <input id="password" type="password" aria-describedby="username1-help" [placeholder]="'GLOBAL.PASSWORD' | translate" pInputText [(ngModel)]="personRegister.password" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="passwordRepeat" class="block">{{'GLOBAL.PASSWORD_REPEAT' | translate}}</label>
-            <input id="passwordRepeat" type="password" aria-describedby="username1-help" [placeholder]="'GLOBAL.PASSWORD_REPEAT' | translate" pInputText [(ngModel)]="passwordRepeat" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="birthdate">{{'GLOBAL.BIRTHDATE' | translate}}</label>
-            <p-calendar [(ngModel)]="personRegister.birthdate" dateFormat="dd/mm/yy"></p-calendar>
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="center" class="block">{{'GLOBAL.CENTER' | translate}}</label>
-            <input id="center" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.CENTER' | translate" pInputText [(ngModel)]="personRegister.center" />
-        </div>
-        <div class="col-12 p-1 field">
-            <label for="phone" class="block">{{'GLOBAL.PHONE_NUMBER' | translate}}</label>
-            <input id="phone" type="number" aria-describedby="username1-help" [placeholder]="'GLOBAL.PHONE_NUMBER' | translate" pInputText [(ngModel)]="personRegister.phone" />
-        </div>
-        <div class="col-12 p-1 align-center">
-            <the-button [label]="'GLOBAL.INSCRIPTION' | translate" (onClick)="register()"></the-button>
-        </div>
+<div class="grid justify-content-center">
+    <div class="col-6">
+        <p-panel [header]="'INSCRIPTION.FORM.REGISTER' | translate" *ngIf="personRegister">
+            <div class="grid formgrid p-fluid">
+                <div class="col-12 p-1 field">
+                    <label for="name" class="block">{{'GLOBAL.NAME' | translate}}</label>
+                    <input id="name" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText [(ngModel)]="personRegister.name" />
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="lastname1" class="block">{{'GLOBAL.LASTNAME1' | translate}}</label>
+                    <input id="lastname1" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME1' | translate" pInputText [(ngModel)]="personRegister.lastname1" />
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="lastname2" class="block">{{'GLOBAL.LASTNAME2' | translate}}</label>
+                    <input id="lastname2" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME2' | translate" pInputText [(ngModel)]="personRegister.lastname2" />
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="email" class="block">{{'GLOBAL.EMAIL' | translate}}</label>
+                    <input id="email" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.EMAIL' | translate" pInputText [(ngModel)]="personRegister.email" />
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="birthdate">{{'GLOBAL.BIRTHDATE' | translate}}</label>
+                    <p-calendar [(ngModel)]="personRegister.birthdate" dateFormat="dd/mm/yy"></p-calendar>
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="center" class="block">{{'GLOBAL.CENTER' | translate}}</label>
+                    <input id="center" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.CENTER' | translate" pInputText [(ngModel)]="personRegister.center" />
+                </div>
+                <div class="col-12 p-1 field">
+                    <label for="phone" class="block">{{'GLOBAL.PHONE_NUMBER' | translate}}</label>
+                    <input id="phone" type="number" aria-describedby="username1-help" [placeholder]="'GLOBAL.PHONE_NUMBER' | translate" pInputText [(ngModel)]="personRegister.phone" />
+                </div>
+                <div class="col-12 p-1 align-center">
+                    <the-button [label]="'GLOBAL.INSCRIPTION' | translate" (onClick)="register()"></the-button>
+                </div>
+            </div>
+        </p-panel>
 
-        <!--TODO Implementar esto-->
-        <div class="col-12 p-1 align-center">
-            <p (click)="activateSigIn()">¿Ya estás Registrado? Inicia sesión</p>
-        </div>
     </div>
-</p-panel>
+</div>
