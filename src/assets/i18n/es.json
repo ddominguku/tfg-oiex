@@ -4,14 +4,19 @@
     "GLOBAL.NAME": "Nombre",
     "GLOBAL.LASTNAME1": "Primer apellido",
     "GLOBAL.LASTNAME2": "Segundo apellido",
+    "GLOBAL.DESCRIPTION": "Descripción",
+    "GLOBAL.POSITION": "Posición",
+    "GLOBAL.ADD": "Añadir",
     "GLOBAL.PASSWORD": "Contraseña",
     "GLOBAL.PASSWORD_REPEAT": "Repita la contraseña",
+    "GLOBAL.TITLE": "Título",
     "GLOBAL.BIRTHDATE": "Dia de nacimiento",
     "GLOBAL.CENTER": "Centro de estudios",
     "GLOBAL.PHONE_NUMBER": "Número de teléfono",
     "GLOBAL.LOG_IN": "Iniciar sesión",
     "GLOBAL.REGISTER": "Registro",
     "GLOBAL.INSCRIPTION": "Inscribirse",
+    "GLOBAL.TO.INSCRIPTION": "PARA INSCRIBIRTE",
     "GLOBAL.ENTER": "Entrar",
     "SPONSORS.TITLE": "PATROCINADORES",
     "HOME.TITLE": "X OLIMPIADA INFORMÁTICA DE EXTREMADURA",
@@ -20,5 +25,7 @@
     "NORMATIVE.TITLE": "NORMATIVA Y OBJETIVOS",
     "CALENDAR.TITLE": "CALENDARIO",
     "AWARDS.TITLE": "PREMIOS",
-    "INTEREST_LINK.TITLE": "ENLACES DE INTERES"
+    "INTEREST_LINK.TITLE": "ENLACES DE INTERES",
+    "INSCRIPTION.REGISTER": "Inscríbete aquí",
+    "INSCRIPTION.FORM.REGISTER": "FORMULARIO DE REGISTRO"
 }

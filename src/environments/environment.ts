@@ -11,8 +11,9 @@ export const environment = {
       baseUrl: 'http://localhost:8080/api',
       endpoints: {
         person: '/person',
-        award: '/award',
-        patrocinadores: '/patrocinadores',
+        award: '/awards',
+        normative: '/normatives',
+        sponsor: '/sponsors',
         //usersDashboards: '/dashboards',
       },
     }},

@@ -15,7 +15,7 @@ export class AwardService {
 
   /**
    * @description Notifica el estado de carga del servicio
-   * @author Centro de Observación y Teledetección Espacial, S.L.U.
+   * @author Daniel Domínguez Tejada
    * @protected
    * @param {boolean} loading
    * @memberof AwardService

@@ -1,0 +1,122 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple [label]="Borrar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="normativeList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedNormatives" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Normativas y Objetivos</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">
+                    Titulo
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="description">
+                    Descripción
+                    <p-sortIcon field="description"></p-sortIcon>
+                </th>
+                <th pSortableColumn="position">
+                    Posición
+                    <p-sortIcon field="position"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-normative>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="normative"></p-tableCheckbox>
+                </td>
+                <td>{{ normative.name }}</td>
+                <td>{{ normative.description }}</td>
+                <td>{{ normative.position }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editNormative(normative)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteNormative(normative)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ normativeList ? normativeList.length : 0 }} Normativas y Objetivos.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="normativeDialog" [style]="{ width: '900px' }" header="Formulario Normativas y Objetivos" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <!--<img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image" />-->
+            <div class="col-12 p-1 field">
+                <label for="titulo" class="block">{{
+          "GLOBAL.TITLE" | translate
+        }}</label>
+                <input id="titulo" type="text" name="titulo" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="normativeNew.name" pInputText />
+                <small class="p-error" *ngIf="submitted && !normativeNew.name">El título es obligatoria</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="description" class="block">{{
+          "GLOBAL.DESCRIPTION" | translate
+        }}</label>
+        <textarea
+          pInputTextarea
+          [placeholder]="'GLOBAL.DESCRIPTION' | translate"
+          [(ngModel)]="normativeNew.description"
+          autoResize="autoResize"
+        ></textarea>
+        <small class="p-error" *ngIf="submitted && !normativeNew.name"
+          >La descripción es obligatoria</small
+        >
+      </div>
+      <div class="col-2 p-1 field">
+        <label for="posicion" class="block">{{
+          "GLOBAL.POSITION" | translate
+        }}</label>
+        <p-inputNumber
+          [(ngModel)]="normativeNew.position"
+          mode="decimal"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          spinnerMode="horizontal"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        ></p-inputNumber>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addNormative()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
