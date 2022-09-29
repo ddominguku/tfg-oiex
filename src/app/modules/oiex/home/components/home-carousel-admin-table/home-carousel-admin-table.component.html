@@ -1,0 +1,100 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple [label]="Borrar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="carouselsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedcarousels" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Imágenes del carrusel</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">
+                    Título
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th>
+                    Imagen
+                    <p-sortIcon></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-carousel>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="carousel"></p-tableCheckbox>
+                </td>
+                <td>{{ carousel.name }}</td>
+                <td><img [src]="carousel.url" [alt]="carousel.name" class="image-td" /></td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editCarousel(carousel)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteCarousel(carousel)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ carouselsList ? carouselsList.length : 0 }} items del carrusel.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="carouselDialog" [style]="{ width: '900px' }" header="Formulario del Carrusel" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-12 p-1 field">
+                <label for="name" class="block">{{
+          "GLOBAL.TITLE" | translate
+        }}</label>
+                <input id="titulo" type="text" name="titulo" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="carouselNew.name" pInputText />
+                <small class="p-error" *ngIf="submitted && !carouselNew.name">El título es obligatoria</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="description" class="block">{{
+          "GLOBAL.URL_IMAGE" | translate
+        }}</label>
+        <textarea
+          pInputTextarea
+          [placeholder]="'GLOBAL.URL_IMAGE' | translate"
+          [(ngModel)]="carouselNew.url"
+          autoResize="autoResize"
+        ></textarea>
+        <small class="p-error" *ngIf="submitted && !carouselNew.url"
+          >La url de la imagen es obligatoria</small
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addcarousel()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

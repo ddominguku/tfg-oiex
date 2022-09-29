@@ -105,50 +105,53 @@ export class MenuItemComponent implements OnInit, OnChanges {
         routerLink: "/patrocinadores",
       },
       {
-        label: "FAQ",
-        icon: "fa fa-solid fa-clipboard-question",
-        routerLink: "/faq",
+        label: "Anteriores ediciones",
+        icon: "fa fa-sharp fa-solid fa-clock-rotate-left",
+        routerLink: "/ediciones",
       },
       {
         label: "Admin",
         icon: "fa fa-solid fa-user-shield",
         items: [
-          { label: "Inicio", icon: "pi pi-home", routerLink: "/admin/inicio" },
+          { label: "Gestionar Inicio", icon: "pi pi-home", routerLink: "/admin/inicio" },
           {
             label: "Gestionar Preparación",
             icon: "fa fa-solid fa-lines-leaning",
-            routerLink: "/admin/inicio",
+            routerLink: "/admin/preparacion",
           },
-          { label: "Normativa", icon: "pi pi-book", routerLink: "/admin/normativa" },
+          { label: "Gestionar Normativa", icon: "pi pi-book", routerLink: "/admin/normativa" },
           {
             label: "Gestionar Calendario",
             icon: "pi pi-calendar",
-            routerLink: "admin/enlaces",
+            routerLink: "/admin/calendario",
           },
           {
             label: "Gestionar Premios",
             icon: "fa-solid fa-trophy",
-            routerLink: "/enlaces",
+            routerLink: "/admin/premios",
           },
           {
             label: "Gestionar Enlaces de interés",
             icon: "fa fa-solid fa-link",
-            routerLink: "/enlaces",
+            routerLink: "/admin/enlaces",
           },
           {
             label: "Gestionar Patrocinadores",
             icon: "fa <i fa-solid fa-square-parking",
-            routerLink: "/enlaces",
+            routerLink: "/admin/patrocinadores",
+          },
+          {
+            label: "Gestionar Ediciones",
+            icon: "fa fa-sharp fa-solid fa-clock-rotate-left",
+            routerLink: "/admin/ediciones",
+          },
+          {
+            label: "Gestionar Participantes",
+            icon: "pi pi-users",
+            routerLink: "/admin/participantes",
           },
         ],
       },
     ];
-  }
-
-  /**
-   * @description: enlaza con pagina de iniciar sesión
-   */
-  public navigateToSigIn(): void {
-    this.router.navigateByUrl("/iniciar-sesion");
   }
 }

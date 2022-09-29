@@ -1,0 +1,205 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <div class="p-inputgroup">
+                <button type="button" icon="pi pi-search" (click)="loadEditionsByYear(yearSearch)" pButton pRipple></button>
+                <input type="text" [(ngModel)]="yearSearch" pInputText placeholder="Buscar por año">
+            </div>
+            <button pButton pRipple type="button" icon="fa fa-solid fa-broom" class="p-button-rounded p-button-secondary m-2" (click)="loadeditions()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="editionsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedEdition" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Ganadores</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">
+                    Nombre
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="awardPosition">
+                    Puesto
+                    <p-sortIcon field="awardPosition"></p-sortIcon>
+                </th>
+                <th pSortableColumn="center">
+                    Centro
+                    <p-sortIcon field="Centro"></p-sortIcon>
+                </th>
+                <th pSortableColumn="modality">
+                    Modalidad
+                    <p-sortIcon field="modality"></p-sortIcon>
+                </th>
+                <th pSortableColumn="year">
+                    Año
+                    <p-sortIcon field="year"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-edition>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="edition"></p-tableCheckbox>
+                </td>
+                <td>{{ edition.name }}</td>
+                <td>{{ edition.awardPosition }}</td>
+                <td>
+                    {{ edition.center }}
+                </td>
+                <td>{{ edition.modality }}</td>
+                <td>{{ edition.year }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editEdition(edition)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteEdition(edition)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ editionsList ? editionsList.length : 0 }} resultados.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="editionDialog" [style]="{ width: '900px' }" header="Formulario de participantes de ediciones pasadas" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-6 p-1 field">
+                <label for="POSITION" class="block">{{ "GLOBAL.POSITION_AWARD" | translate }}</label>
+                <input id="position" type="text" name="position" [placeholder]="'GLOBAL.POSITION_AWARD' | translate" [(ngModel)]="editionNew.awardPosition" pInputText />
+                <small class="p-error" *ngIf="submitted && !editionNew.awardPosition">El puesto es obligatorio</small
+            >
+          </div>
+      <div class="col-6 p-1 field">
+        <label for="name" class="block">{{ "GLOBAL.NAME" | translate }}</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [placeholder]="'GLOBAL.NAME' | translate"
+          [(ngModel)]="editionNew.name"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.name"
+          >El nombre es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="CENTER" class="block">{{ "GLOBAL.CENTER" | translate }}</label>
+        <input
+          id="center"
+          type="text"
+          name="center"
+          [placeholder]="'GLOBAL.CENTER' | translate"
+          [(ngModel)]="editionNew.center"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.center"
+          >El centro es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="preparator" class="block">{{ "GLOBAL.PREPARATOR" | translate }}</label>
+        <input
+          id="preparator"
+          type="text"
+          name="preparator"
+          [placeholder]="'GLOBAL.PREPARATOR' | translate"
+          [(ngModel)]="editionNew.preparatorName"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.preparatorName"
+          >El preparador/a es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="modality" class="block">{{
+          "GLOBAL.MODALITY" | translate
+        }}</label>
+        <!--<input
+          id="modality"
+          type="text"
+          name="modality"
+          [placeholder]="'GLOBAL.MODALITY' | translate"
+          [(ngModel)]="editionNew.modality"
+          pInputText
+        />-->
+        <p-dropdown
+          [options]="modalitySections"
+          [(ngModel)]="modalitySelected"
+          [placeholder]="'GLOBAL.MODALITY' | translate"
+          optionLabel="name"
+          [showClear]="true"
+        ></p-dropdown>
+        <small class="p-error" *ngIf="submitted && !editionNew.modality"
+          >La modalidad es obligatoria</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="year" class="block">{{
+          "GLOBAL.YEAR" | translate
+        }}</label>
+        <input
+          id="year"
+          type="number"
+          name="year"
+          [placeholder]="'GLOBAL.YEAR' | translate"
+          [(ngModel)]="editionNew.year"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.year"
+          >El año es obligatoria</small
+        >
+      </div>
+
+      <div class="col-12 p-1 field">
+        <label for="url" class="block">{{
+          "GLOBAL.URL_IMAGE" | translate
+        }}</label>
+        <input
+          id="url"
+          type="text"
+          name="url"
+          [placeholder]="'GLOBAL.URL_IMAGE' | translate"
+          [(ngModel)]="editionNew.url"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.url"
+          >La dirección de la imagen es obligatoria</small
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addEdition()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

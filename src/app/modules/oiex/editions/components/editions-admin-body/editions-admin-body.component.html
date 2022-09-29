@@ -1,0 +1,112 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <div class="p-inputgroup">
+                <button type="button" icon="pi pi-search" (click)="loadEditionsByYear(yearSearch)" pButton pRipple></button>
+                <input type="text" [(ngModel)]="yearSearch" pInputText placeholder="Buscar por año" />
+            </div>
+            <button pButton pRipple type="button" icon="fa fa-solid fa-broom" class="p-button-rounded p-button-secondary m-2" (click)="loadeditions()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="editionsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedEdition" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Ediciones</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="title">
+                    Título
+                    <p-sortIcon field="title"></p-sortIcon>
+                </th>
+                <th pSortableColumn="year">
+                    Año
+                    <p-sortIcon field="year"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-edition>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="edition"></p-tableCheckbox>
+                </td>
+                <td>{{ edition.title }}</td>
+                <td>{{ edition.year }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editEdition(edition)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteEdition(edition)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ editionsList ? editionsList.length : 0 }} resultados.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="editionDialog" [style]="{ width: '900px' }" header="Formulario de portada de ediciones anteriores" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-12 p-1 field">
+                <label for="title" class="block">{{
+          "GLOBAL.TITLE" | translate
+        }}</label>
+                <input id="title" type="text" name="title" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="editionNew.title" pInputText />
+                <small class="p-error" *ngIf="submitted && !editionNew.name">El título es obligatorio</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="year" class="block">{{ "GLOBAL.YEAR" | translate }}</label>
+        <input
+          id="year"
+          type="number"
+          name="year"
+          [placeholder]="'GLOBAL.YEAR' | translate"
+          [(ngModel)]="editionNew.year"
+          pInputText
+        />
+        <small class="p-error" *ngIf="submitted && !editionNew.year"
+          >El año es obligatoria</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <p-editor
+          [(ngModel)]="editionNew.body"
+          [style]="{ height: '320px' }"
+        ></p-editor>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addEdition()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

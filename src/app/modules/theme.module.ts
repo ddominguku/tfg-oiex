@@ -29,6 +29,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+import {DropdownModule} from 'primeng/dropdown';
+import { ChipModule } from 'primeng/chip';
+import {EditorModule} from 'primeng/editor';
+import {GalleriaModule} from 'primeng/galleria';
+
 
 @NgModule({
   declarations: [
@@ -66,7 +71,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ToastModule,
     InputTextareaModule,
     InputTextModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule,
+    ChipModule,
+    CalendarModule,
+    EditorModule,
+    GalleriaModule
   ],
   exports: [
     MainLayoutComponent,
@@ -88,7 +98,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ToastModule,
     InputTextareaModule,
     InputTextModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule,
+    ChipModule,
+    CalendarModule,
+    EditorModule,
+    GalleriaModule
   ],
 })
 export class ThemeModule {}

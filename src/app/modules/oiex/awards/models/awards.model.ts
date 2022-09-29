@@ -7,7 +7,7 @@ export class AwardsModel {
 
   constructor() {
     this.name = "";
-    this.position = "";
+    this.position = null;
     this.description = "";
     this.image = "";
   }

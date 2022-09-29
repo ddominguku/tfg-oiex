@@ -1,5 +1,5 @@
-<p-carousel [value]="imagesCarousel" [numVisible]="1" [numScroll]="1" [autoplayInterval]="3000" [circular]="true">
+<p-carousel [value]="carouselList" [numVisible]="1" [numScroll]="1" [autoplayInterval]="3000" [circular]="true">
     <ng-template let-image pTemplate="item">
-        <img [src]="image" alt="carousel">
+        <img [src]="image.url" [alt]="image.name" class="img-carousel">
     </ng-template>
 </p-carousel>

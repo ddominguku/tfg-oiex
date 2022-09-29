@@ -3,10 +3,17 @@ import { CommonModule } from "@angular/common";
 import { InicioPageComponent } from "./inicio-page.component";
 import { InicioPageRoutingModule } from "./inicio-page-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
-import { ThemeModule } from '../../../modules/theme.module';
+import { ThemeModule } from "../../../modules/theme.module";
+import { HomeFrontModule } from "src/app/modules/oiex/home/components/home-front/home-front.module";
 
 @NgModule({
   declarations: [InicioPageComponent],
-  imports: [CommonModule, InicioPageRoutingModule, TranslateModule, ThemeModule],
+  imports: [
+    CommonModule,
+    InicioPageRoutingModule,
+    TranslateModule,
+    ThemeModule,
+    HomeFrontModule,
+  ],
 })
 export class InicioPageModule {}

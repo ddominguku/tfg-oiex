@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { AwardsModel } from '../models/awards.model';
+import { AwardsModel } from "../models/awards.model";
 
 @Injectable({
   providedIn: "root",
@@ -38,6 +38,19 @@ export class AwardService {
   }
 
   /**
+   * @description Update award
+   * @param {AwardsModel} award to update
+   * @returns {Observable<AwardsModel>}
+   * @memberof AwardService
+   */
+  public updateAward(award: AwardsModel): Observable<AwardsModel> {
+    return this.httpClient.put<AwardsModel>(
+      `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.award}`,
+      award
+    );
+  }
+
+  /**
    * @description Devuelve todas los premios
    * @returns {Observable<AwardsModel[]>}
    * @memberof AwardService
@@ -59,5 +72,4 @@ export class AwardService {
       `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.award}/${idAward}`
     );
   }
-
 }

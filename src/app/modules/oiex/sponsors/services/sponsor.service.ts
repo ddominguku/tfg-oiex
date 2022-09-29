@@ -20,11 +20,11 @@ export class SponsorService {
    * @param {boolean} loading
    * @memberof SponsorService
    */
-   protected notifyLoading(loading: boolean): void {
+  protected notifyLoading(loading: boolean): void {
     this.loadingSubject.next(loading);
   }
 
- /**
+  /**
    * @description Creates a new sponsor
    * @param {SponsorModel} sponsor to create
    * @returns {Observable<SponsorModel>}
@@ -34,6 +34,21 @@ export class SponsorService {
     return this.httpClient.post<SponsorModel>(
       `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.sponsor}`,
       sponsorCreate
+    );
+  }
+
+  /**
+   * @description Update sponsor
+   * @param {NormativeModel} normative to update
+   * @returns {Observable<NormativeModel>}
+   * @memberof NormativeService
+   */
+  public updateNormative(
+    sponsorUpdate: SponsorModel
+  ): Observable<SponsorModel> {
+    return this.httpClient.put<SponsorModel>(
+      `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.sponsor}`,
+      sponsorUpdate
     );
   }
 
@@ -59,5 +74,4 @@ export class SponsorService {
       `${this.serviceUrl.baseUrl}${environment.apis.oiex.endpoints.sponsor}/${idSponsor}`
     );
   }
-
 }

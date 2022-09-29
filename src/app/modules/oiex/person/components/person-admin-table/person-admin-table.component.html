@@ -1,0 +1,288 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <!--<button pButton pRipple [label]="Borrar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>-->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="personsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedpersons" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Participantes</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">
+                    Nombre
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">
+                    Email
+                    <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th pSortableColumn="center">
+                    Centro
+                    <p-sortIcon field="center"></p-sortIcon>
+                </th>
+                <th>Teléfono</th>
+                <th pSortableColumn="teacherName">
+                    Nombre del profesor
+                    <p-sortIcon field="teacherName"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-participant>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="participant"></p-tableCheckbox>
+                </td>
+                <td>{{ participant.name }} {{ participant.lastname1 }}</td>
+                <td>{{ participant.email }}</td>
+                <td>{{ participant.center }}</td>
+                <td>{{ participant.phone }}</td>
+                <td>{{ participant.teacherName }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editperson(participant)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteperson(participant)"></button>
+                <button pButton pRipple icon="pi pi-envelope" class="p-button-rounded p-button-warning m-2" (click)="openDialogMail(participant)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ personsList ? personsList.length : 0 }} Participantes.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="personDialog" [style]="{ width: '900px' }" header="Formulario de Participantes" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-6 p-1 field">
+                <label for="name" class="block">{{ "GLOBAL.NAME" | translate }}</label>
+                <input id="name" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText [(ngModel)]="personNew.name" />
+                <small class="p-error" *ngIf="submitted && !personNew.name">El nombre es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="lastname1" class="block">{{
+          "GLOBAL.LASTNAME1" | translate
+        }}</label>
+        <input
+          id="lastname1"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.LASTNAME1' | translate"
+          pInputText
+          [(ngModel)]="personNew.lastname1"
+        />
+        <small class="p-error" *ngIf="submitted && !personNew.lastname1"
+          >El apellido 1 es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="lastname2" class="block">{{
+          "GLOBAL.LASTNAME2" | translate
+        }}</label>
+        <input
+          id="lastname2"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.LASTNAME2' | translate"
+          pInputText
+          [(ngModel)]="personNew.lastname2"
+        />
+        <small class="p-error" *ngIf="submitted && !personNew.lastname2"
+          >El apellido 2 es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="email" class="block">{{
+          "GLOBAL.EMAIL" | translate
+        }}</label>
+        <input
+          id="email"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.EMAIL' | translate"
+          pInputText
+          [(ngModel)]="personNew.email"
+        />
+        <small class="p-error" *ngIf="submitted && !personNew.email"
+          >El email es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="phone" class="block">{{
+          "GLOBAL.PHONE_NUMBER" | translate
+        }}</label>
+        <input
+          id="phone"
+          type="number"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.PHONE_NUMBER' | translate"
+          pInputText
+          [(ngModel)]="personNew.phone"
+        />
+        <small class="p-error" *ngIf="submitted && !personNew.phone"
+          >El número de teléfono es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="teacherName" class="block">{{
+          "GLOBAL.TEACHER_NAME" | translate
+        }}</label>
+        <input
+          id="teacherName"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.TEACHER_NAME' | translate"
+          pInputText
+          [(ngModel)]="personNew.teacherName"
+        />
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="teacherEmail" class="block">{{
+          "GLOBAL.TEACHER_EMAIL" | translate
+        }}</label>
+        <input
+          id="teacherEmail"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.TEACHER_EMAIL' | translate"
+          pInputText
+          [(ngModel)]="personNew.teacherEmail"
+        />
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="center" class="block">{{
+          "GLOBAL.CENTER" | translate
+        }}</label>
+        <input
+          id="center"
+          type="text"
+          aria-describedby="username1-help"
+          [placeholder]="'GLOBAL.CENTER' | translate"
+          pInputText
+          [(ngModel)]="personNew.center"
+        />
+        <small class="p-error" *ngIf="submitted && !personNew.center"
+          >El centro es obligatorio</small
+        >
+      </div>
+      <div class="col-6 p-1 field">
+        <label for="birthdate">{{ "GLOBAL.BIRTHDATE" | translate }}</label>
+        <p-calendar
+          name="birthdate"
+          inputId="basic"
+          [(ngModel)]="birthdate"
+          dateFormat="dd/mm/yy"
+        ></p-calendar>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addperson()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<!-- ESTO ES LO DEL MAIL -->
+<p-dialog
+  [(visible)]="mailDialog"
+  [style]="{ width: '900px' }"
+  header="Mensaje nuevo"
+  [modal]="true"
+>
+  <ng-template pTemplate="content">
+    <div class="grid formgrid p-fluid">
+      <div class="col-12 p-1 field">
+        <label for="to" class="block">{{ "GLOBAL.MAIL_TO" | translate }}</label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"
+            ><i class="fa fa-solid fa-at"></i
+          ></span>
+          <input
+            type="text"
+            name="to"
+            [(ngModel)]="mailNew.to"
+            pInputText
+            [placeholder]="'GLOBAL.MAIL_TO' | translate"
+          />
+        </div>
+        <small class="p-error" *ngIf="submitted && !mailNew.to"
+          >El email es obligatorio</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="subject" class="block">{{
+          "GLOBAL.SUBJECT" | translate
+        }}</label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+          <input
+            type="text"
+            name="subject"
+            [(ngModel)]="mailNew.subject"
+            pInputText
+            [placeholder]="'GLOBAL.SUBJECT' | translate"
+          />
+        </div>
+        <small class="p-error" *ngIf="submitted && !mailNew.to"
+          >El email es obligatorio</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <textarea
+          pInputTextarea
+          [placeholder]="'GLOBAL.MAIL_TEXT' | translate"
+          [(ngModel)]="mailNew.body"
+          autoResize="autoResize"
+        ></textarea>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.SEND' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="sendMail()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

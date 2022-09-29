@@ -1,0 +1,56 @@
+<div class="grid justify-content-center card">
+    <h1>{{ "GLOBAL.PAST_EDITIONS" | translate }}</h1>
+</div>
+
+<div class="card">
+    <div class="formgrid grid justify-content-center">
+        <div class="field col-2">
+            <div *ngFor="let item of bodyEditionList">
+                <button pButton pRipple type="button" [label]="item.title" class="p-button-raised p-button-secondary" (click)="loadEditionsByYear(item)"></button>
+            </div>
+        </div>
+        <div class="field col-6">
+            <h3>{{ bodySelected.title }} {{ bodySelected.year }}</h3>
+            <div [innerHTML]="bodySelected.body"></div>
+            <h2>MODALIDAD DE PROGRAMACIÓN</h2>
+            <p-galleria [(value)]="programacionList" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'width': '50em' }" [numVisible]="programacionList.length">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.url" class="img-carousel" />
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                    <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.url" class="img-mini-carousel" style="display: block" />
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="caption" let-item>
+                    <h3 style="margin-bottom: 0.5rem; color: #ffffff">
+                        {{ item.awardPosition }}
+                    </h3>
+                    <p>{{ item.name }}</p>
+                    <p>Centro: {{ item.center }}</p>
+                    <p>Preparador/a: {{ item.preparatorName }}</p>
+                </ng-template>
+            </p-galleria>
+            <h2>MODALIDAD DE INGENIO</h2>
+            <p-galleria [(value)]="ingenioList" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'width': '50em' }" [numVisible]="ingenioList.length">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.url" class="img-carousel" />
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                    <div class="grid grid-nogutter justify-content-center">
+                        <img [src]="item.url" class="img-mini-carousel" style="display: block" />
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="caption" let-item>
+                    <h3 style="margin-bottom: 0.5rem; color: #ffffff">
+                        {{ item.awardPosition }}
+                    </h3>
+                    <p>{{ item.name }}</p>
+                    <p>Centro: {{ item.center }}</p>
+                    <p>Preparador/a: {{ item.preparatorName }}</p>
+                </ng-template>
+            </p-galleria>
+
+        </div>
+    </div>
+</div>

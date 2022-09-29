@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Output, OnInit } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { AdminModel } from "../../models/admin.model";
-import { PersonModel } from "../../models/person.model";
 import { PersonService } from "../../services/person.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: "app-log-in",
   templateUrl: "./log-in.component.html",
   styleUrls: ["./log-in.component.css"],
+  providers: [MessageService],
 })
 export class LogInComponent implements OnInit {
   @Output() propagateActivateRegister = new EventEmitter<Boolean>();

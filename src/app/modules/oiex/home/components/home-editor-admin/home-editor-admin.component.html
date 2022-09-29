@@ -1,0 +1,6 @@
+<h1>Administración de página de Inicio</h1>
+<p-editor [(ngModel)]="homeEditor.body" [style]="{'height':'320px'}"></p-editor>
+<button pButton pRipple label="Limpiar" icon="fa fa-solid fa-broom" class="m-2" (click)="clear()"></button>
+<button pButton pRipple label="Guardar" icon="pi pi-plus" class="p-button-success m-2" (click)="updateBody()"></button>
+
+<p-toast position="bottom-center"></p-toast>

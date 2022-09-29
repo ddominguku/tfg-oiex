@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { CarouselService } from "../../../oiex/home/services/carousel.service";
+import { CarouselModel } from "../../../oiex/home/models/carousel.model";
 
 @Component({
   selector: "the-carousel",
@@ -8,22 +10,23 @@ import { environment } from "src/environments/environment";
   encapsulation: ViewEncapsulation.None,
 })
 export class CarouselComponent implements OnInit {
-
-  imagesCarousel: string[] = [];
+  carouselList: CarouselModel[] = [];
   img1 = environment.images.carousel_1;
   img2 = environment.images.carousel_3;
   img3 = environment.images.carousel_2;
 
-  constructor() {}
+  constructor(private carouselService: CarouselService) {}
 
-
-    ngOnInit(): void {
-      this.addImagesCarousel();
-    }
-  
-    addImagesCarousel(): void {
-      this.imagesCarousel.push(this.img1);
-      this.imagesCarousel.push(this.img2);
-      this.imagesCarousel.push(this.img3);
-    }
+  ngOnInit(): void {
+    this.loadImagesCarousel();
   }
+
+  private loadImagesCarousel(): void {
+    this.carouselService
+      .getAll()
+      .subscribe((carouselListReturn: CarouselModel[]) => {
+        this.carouselList = [...carouselListReturn];
+        console.log(this.carouselList);
+      });
+  }
+}

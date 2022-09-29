@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 import { CalendarOptions } from "@fullcalendar/angular"; // useful for typechecking
 import esLocale from "@fullcalendar/core/locales/es";
+import { CalendarService } from "../../../modules/oiex/calendar/services/calendar.services";
+import { CalendarModel } from "src/app/modules/oiex/calendar/models/calendar.model";
 
 @Component({
   selector: "app-calendario-page",
@@ -10,6 +12,7 @@ import esLocale from "@fullcalendar/core/locales/es";
 })
 export class CalendarioPageComponent implements OnInit {
   public QRCode: string = environment.images.qr_code;
+  calendarList: CalendarModel[] = [];
 
   calendarOptions: CalendarOptions = {
     initialView: "dayGridMonth",
@@ -30,8 +33,21 @@ export class CalendarioPageComponent implements OnInit {
     alert(arg.dateStr);
   }
 
-  constructor() {}
+  constructor(private calendarService: CalendarService) {}
 
   ngOnInit(): void {
+    this.loadEvents();
   }
+
+  private loadEvents(): void {
+    this.calendarService
+      .getCalendars()
+      .subscribe((calendarListReturn: CalendarModel[]) => {
+        this.calendarList = calendarListReturn;
+      });
+  }
+
+  /*private setEvents(): void{
+    this.calendarOptions.eventAdd()
+  }*/
 }

@@ -1,0 +1,24 @@
+<div class="grid justify-content-center">
+    <h1>{{ "SPONSORS.TITLE" | translate }}</h1>
+</div>
+<!--<ng-container *ngFor=" let it of sponsorList">
+    <p-image [src]="it.image" [alt]="it.name " width="100" height="110" [preview]="true"></p-image>
+</ng-container>-->
+
+<div class="card">
+    <div class="flex flex-row flex-wrap card-container blue-container">
+        <div *ngFor="let sponsor of sponsorList">
+            <p-card [header]="sponsor.name" [style]="{ width: '18em'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <img [alt]="sponsor.name" [src]="sponsor.image" />
+                </ng-template>
+                <p>{{ sponsor.description }}</p>
+                <ng-template pTemplate="footer">
+                    <a [href]="sponsor.url" target="_blank">
+                        <p-button label="Accede a su web" icon="fa fa-solid fa-link" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+                    </a>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

@@ -10,11 +10,19 @@ export const environment = {
     oiex: {
       baseUrl: 'http://localhost:8080/api',
       endpoints: {
-        person: '/person',
+        person: '/persons',
         award: '/awards',
         normative: '/normatives',
         sponsor: '/sponsors',
-        //usersDashboards: '/dashboards',
+        link: '/links',
+        edition: '/editions',
+        calendar: '/calendar',
+        mail: '/mail',
+        editionBody: '/editions/body',
+        carousel: '/home/carousel',
+        editor: '/home/editor',
+        preparation: '/home/preparation',
+        
       },
     }},
 

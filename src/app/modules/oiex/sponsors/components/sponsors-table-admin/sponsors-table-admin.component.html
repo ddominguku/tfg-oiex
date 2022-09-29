@@ -1,0 +1,117 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <!--<button pButton pRipple [label]="Borrar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>-->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="sponsorsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Patrocinadores</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th pSortableColumn="name">
+                    Nombre
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>Imagen</th>
+                <th>URL</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sponsor>
+            <tr>
+                <td>{{ sponsor.name }}</td>
+                <td>{{ sponsor.description }}</td>
+
+                <td>
+                    <img [src]="sponsor.image" [alt]="sponsor.name" class="image-td" />
+                </td>
+                <td>{{ sponsor.url }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editSponsor(sponsor)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteSponsor(sponsor)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ sponsorsList ? sponsorsList.length : 0 }} Patrocinadores.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="sponsorDialog" [style]="{ width: '900px' }" header="Formulario de Patrocinadores" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-12 p-1 field">
+                <label for="name" class="block">{{
+          "GLOBAL.NAME" | translate
+        }}</label>
+                <input id="name" type="text" name="name" [placeholder]="'GLOBAL.NAME' | translate" [(ngModel)]="sponsorNew.name" pInputText />
+                <small class="p-error" *ngIf="submitted && !sponsorNew.name">El nombre es obligatorio</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="description" class="block">{{
+  "GLOBAL.DESCRIPTION" | translate
+}}</label>
+        <input id="description" type="text" name="description" [placeholder]="'GLOBAL.DESCRIPTION' | translate" [(ngModel)]="sponsorNew.description" pInputText />
+        <small class="p-error" *ngIf="submitted && !sponsorNew.description">La descripción es obligatoria</small
+>
+            </div>
+            <div class="col-12 p-1 field">
+                <label for="image" class="block">{{
+          "GLOBAL.URL_IMAGE" | translate
+        }}</label>
+                <input id="image" type="text" name="image" [placeholder]="'GLOBAL.URL_IMAGE' | translate" [(ngModel)]="sponsorNew.image" pInputText />
+                <small class="p-error" *ngIf="submitted && !sponsorNew.name">La url de la imagen es obligatoria</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="url" class="block">{{
+          "GLOBAL.URL_WEB" | translate
+        }}</label>
+        <textarea
+          pInputTextarea
+          [placeholder]="'GLOBAL.URL_WEB' | translate"
+          [(ngModel)]="sponsorNew.url"
+          autoResize="autoResize"
+        ></textarea>
+        <small class="p-error" *ngIf="submitted && !sponsorNew.name"
+          >La dirección de la web es obligatoria</small
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addSponsor()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -1,0 +1,21 @@
+<div class="grid justify-content-center">
+    <h1>{{ "INTEREST_LINK.TITLE" | translate }}</h1>
+</div>
+<div class="grid justify-content-center">
+    <div class="col-8">
+        <h2>Otras Olimpiadas de Informática</h2>
+        <div *ngFor="let link of linksList">
+            <a *ngIf="link.section == 'Otras Olimpiadas de Informática'" [href]="link.url" target="_blank">
+                <p-chip styleClass="mb-2" [label]="link.name"></p-chip>
+            </a>
+        </div>
+    </div>
+    <div class="col-8">
+        <h2>Para prepararse:</h2>
+        <div *ngFor="let link of linksList">
+            <a *ngIf="link.section == 'Para prepararse'" [href]="link.url" target="_blank">
+                <p-chip styleClass="mb-2" [label]="link.name"></p-chip>
+            </a>
+        </div>
+    </div>
+</div>

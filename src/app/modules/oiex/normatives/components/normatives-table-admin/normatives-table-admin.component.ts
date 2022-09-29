@@ -31,6 +31,9 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
     this.loadNormatives();
   }
 
+  /**
+   * Load all normatives
+   */
   private loadNormatives() {
     this.normativeService
       .getAll()
@@ -40,12 +43,27 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
       });
   }
 
+  /**
+   * Open dialog for add new normative
+   */
   public openNew() {
     this.normativeNew = new NormativeModel();
     this.submitted = false;
     this.normativeDialog = true;
   }
 
+  /**
+   * Close dialog
+   */
+  public cancelDialog() {
+    this.normativeNew = new NormativeModel();
+    this.submitted = false;
+    this.normativeDialog = false;
+  }
+
+/**
+ * Add new normative in table
+ */
   public addNormative() {
     this.normativeService
       .createNormative(this.normativeNew)
@@ -62,11 +80,19 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
       });
   }
 
+  /**
+   * Edit normative in table
+   * @param normative To edit
+   */
   public editNormative(normative: NormativeModel) {
     this.normativeNew = { ...normative };
     this.normativeDialog = true;
   }
 
+  /**
+   * Delete normative in table
+   * @param normativeDelete To delete
+   */
   public deleteNormative(normativeDelete: NormativeModel) {
     this.confirmationService.confirm({
       message: "¿Está seguro de borrar la normativa y objetivo seleccionado?",
@@ -90,6 +116,9 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * Delete select normatives in table
+   */
   deleteSelectedNormatives() {
     this.confirmationService.confirm({
       message: "Está seguro de borrar la normativas y objetivos seleccionados?",

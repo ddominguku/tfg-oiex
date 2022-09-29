@@ -59,10 +59,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: "faq",
+    path: "ediciones",
     loadChildren: () =>
-      import("./pages/public/faq-page/faq-page.module").then(
-        (m) => m.FaqPageModule
+      import("./pages/public/editions-page/editions-page.module").then(
+        (m) => m.EditionsPageModule
       ),
   },
   {
@@ -93,6 +93,56 @@ const routes: Routes = [
         "./pages/private/normative-admin-page/normative-admin-page.module"
       ).then((m) => m.NormativeAdminPageModule),
   },
+  {
+    path: "admin/premios",
+    loadChildren: () =>
+      import(
+        "./pages/private/award-admin-page/award-admin-page.module"
+      ).then((m) => m.AwardAdminPageModule),
+  },
+  {
+    path: "admin/patrocinadores",
+    loadChildren: () =>
+      import(
+        "./pages/private/sponsor-admin-page/sponsor-admin-page.module"
+      ).then((m) => m.SponsorAdminPageModule),
+  },
+  {
+    path: "admin/participantes",
+    loadChildren: () =>
+      import(
+        "./pages/private/person-admin-page/person-admin-page.module"
+      ).then((m) => m.PersonAdminPageModule),
+  },
+  {
+    path: "admin/preparacion",
+    loadChildren: () =>
+      import(
+        "./pages/private/preparation-admin-page/preparation-admin-page.module"
+      ).then((m) => m.PreparationAdminPageModule),
+  },
+  {
+    path: "admin/enlaces",
+    loadChildren: () =>
+      import(
+        "./pages/private/link-admin-page/link-admin-page.module"
+      ).then((m) => m.LinkAdminPageModule),
+  },
+  {
+    path: "admin/ediciones",
+    loadChildren: () =>
+      import("./pages/private/editions-admin-page/editions-admin-page.module").then(
+        (m) => m.EditionsAdminPageModule
+      ),
+  },
+  {
+    path: "admin/calendario",
+    loadChildren: () =>
+      import("./pages/private/calendar-admin-page/calendar-admin-page.module").then(
+        (m) => m.CalendarAdminPageModule
+      ),
+  },
+
   { path: "**", redirectTo: "inicio" },
 ];
 

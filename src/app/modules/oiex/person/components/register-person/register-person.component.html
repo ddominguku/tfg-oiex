@@ -1,43 +1,143 @@
+<p-toast position="bottom-center"> </p-toast>
 <div class="grid justify-content-center">
     <img [src]="imgRegister" alt="imagen registro" class="imgRegister" />
 </div>
 <div class="grid justify-content-center">
     <div class="col-6">
-        <p-panel [header]="'INSCRIPTION.FORM.REGISTER' | translate" *ngIf="personRegister">
-            <div class="grid formgrid p-fluid">
-                <div class="col-12 p-1 field">
-                    <label for="name" class="block">{{'GLOBAL.NAME' | translate}}</label>
-                    <input id="name" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText [(ngModel)]="personRegister.name" />
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="lastname1" class="block">{{'GLOBAL.LASTNAME1' | translate}}</label>
-                    <input id="lastname1" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME1' | translate" pInputText [(ngModel)]="personRegister.lastname1" />
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="lastname2" class="block">{{'GLOBAL.LASTNAME2' | translate}}</label>
-                    <input id="lastname2" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.LASTNAME2' | translate" pInputText [(ngModel)]="personRegister.lastname2" />
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="email" class="block">{{'GLOBAL.EMAIL' | translate}}</label>
-                    <input id="email" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.EMAIL' | translate" pInputText [(ngModel)]="personRegister.email" />
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="birthdate">{{'GLOBAL.BIRTHDATE' | translate}}</label>
-                    <p-calendar [(ngModel)]="personRegister.birthdate" dateFormat="dd/mm/yy"></p-calendar>
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="center" class="block">{{'GLOBAL.CENTER' | translate}}</label>
-                    <input id="center" type="text" aria-describedby="username1-help" [placeholder]="'GLOBAL.CENTER' | translate" pInputText [(ngModel)]="personRegister.center" />
-                </div>
-                <div class="col-12 p-1 field">
-                    <label for="phone" class="block">{{'GLOBAL.PHONE_NUMBER' | translate}}</label>
-                    <input id="phone" type="number" aria-describedby="username1-help" [placeholder]="'GLOBAL.PHONE_NUMBER' | translate" pInputText [(ngModel)]="personRegister.phone" />
-                </div>
-                <div class="col-12 p-1 align-center">
-                    <the-button [label]="'GLOBAL.INSCRIPTION' | translate" (onClick)="register()"></the-button>
-                </div>
-            </div>
-        </p-panel>
-
-    </div>
+        <p-panel [header]="'PERSON.FORM.REGISTER' | translate" *ngIf="personRegister">
+            <form #personForm="ngForm">
+                <div class="grid formgrid p-fluid">
+                    <div class="col-6 p-1 field">
+                        <label for="name" class="block">{{
+              "GLOBAL.NAME" | translate
+            }}</label>
+                        <input id="name" name="name" type="text" aria-describedby="name-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText required="true" [(ngModel)]="personRegister.name" class="ng-invalid ng-dirty" />
+                        <small id="name-help" class="p-error block">Username is not available.</small
+            >
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="lastname1" class="block">{{
+              "GLOBAL.LASTNAME1" | translate
+            }}</label>
+            <input
+              id="lastname1"
+              name="lastname1"
+              type="text"
+              required="true"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.LASTNAME1' | translate"
+              pInputText
+              [(ngModel)]="personRegister.lastname1"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="lastname2" class="block">{{
+              "GLOBAL.LASTNAME2" | translate
+            }}</label>
+            <input
+              id="lastname2"
+              name="lastname"
+              type="text"
+              required="true"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.LASTNAME2' | translate"
+              pInputText
+              [(ngModel)]="personRegister.lastname2"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="email" class="block">{{
+              "GLOBAL.EMAIL" | translate
+            }}</label>
+            <input
+              id="email"
+              name="email"
+              type="text"
+              required="true"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.EMAIL' | translate"
+              pInputText
+              [(ngModel)]="personRegister.email"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="birthdate">{{ "GLOBAL.BIRTHDATE" | translate }}</label>
+            <p-calendar
+            required="true"
+              name="birthdate"
+              [(ngModel)]="birthdate"
+              dateFormat="dd/mm/yy"
+            ></p-calendar>
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="center" class="block">{{
+              "GLOBAL.CENTER" | translate
+            }}</label>
+            <input
+              id="center"
+              name="center"
+              required="true"
+              type="text"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.CENTER' | translate"
+              pInputText
+              [(ngModel)]="personRegister.center"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="phone" class="block">{{
+              "GLOBAL.PHONE_NUMBER" | translate
+            }}</label>
+            <input
+              id="phone"
+              required="true"
+              name="phone"
+              type="number"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.PHONE_NUMBER' | translate"
+              pInputText
+              [(ngModel)]="personRegister.phone"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="teacherName" class="block">{{
+              "GLOBAL.TEACHER_NAME" | translate
+            }}</label>
+            <input
+              id="teacherName"
+              name="teacherName"
+              type="text"
+              required="true"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.TEACHER_NAME' | translate"
+              pInputText
+              [(ngModel)]="personRegister.teacherName"
+            />
+          </div>
+          <div class="col-6 p-1 field">
+            <label for="teacherEmail" class="block">{{
+              "GLOBAL.TEACHER_EMAIL" | translate
+            }}</label>
+            <input
+              id="teacherEmail"
+              name="teacherEmail"
+              type="text"
+              required="true"
+              aria-describedby="username1-help"
+              [placeholder]="'GLOBAL.TEACHER_EMAIL' | translate"
+              pInputText
+              [(ngModel)]="personRegister.teacherEmail"
+            />
+          </div>
+          <div class="col-12 p-1 align-center">
+            <the-button
+              [label]="'GLOBAL.INSCRIPTION' | translate"
+              (onClick)="register()"
+              [disabled]="personForm.invalid"
+            ></the-button>
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </div>
 </div>

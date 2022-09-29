@@ -1,0 +1,94 @@
+<p-toast position="bottom-center"></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="m-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="calendarsList" [rows]="10" [paginator]="true" responsiveLayout="scroll" [(selection)]="selectedCalendar" [rowHover]="true" dataKey="id" currentPageReportTemplate="Página {first} de {last} para {totalRecords} resultados" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h2 class="m-0">Gestión de Eventos</h2>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="title">
+                    Titulo evento
+                    <p-sortIcon field="title"></p-sortIcon>
+                </th>
+                <th pSortableColumn="date">
+                    Fecha
+                    <p-sortIcon field="date"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-calendar>
+            <tr>
+                <td>{{ calendar.title }}</td>
+                <td>{{ calendar.date }}</td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editCalendar(calendar)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteCalendar(calendar)"></button>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{ calendarsList ? calendarsList.length : 0 }} resultados.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="calendarDialog" [style]="{ width: '900px' }" header="Formulario de eventos" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class="grid formgrid p-fluid">
+            <div class="col-12 p-1 field">
+                <label for="title" class="block">{{
+          "GLOBAL.TITLE" | translate
+        }}</label>
+                <input id="title" type="text" name="title" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="calendarNew.title" pInputText />
+                <small class="p-error" *ngIf="submitted && !calendarNew.title">El título es obligatorio</small
+        >
+      </div>
+      <div class="col-12 p-1 field">
+        <label for="date">{{ "GLOBAL.DATE_EVENT" | translate }}</label>
+        <p-calendar
+          [(ngModel)]="calendarNew.date"
+          dateFormat="dd/mm/yy"
+          [inline]="true"
+          [showWeek]="true"
+        ></p-calendar>
+        <small class="p-error" *ngIf="submitted && !calendarNew.date"
+          >La fecha es obligatoria</small
+        >
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="cancelDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="'GLOBAL.ADD' | translate"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="addCalendar()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
