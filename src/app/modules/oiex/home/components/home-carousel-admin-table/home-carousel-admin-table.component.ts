@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { CarouselModel } from "../../models/carousel.model";
 import { CarouselService } from "../../services/carousel.service";
@@ -14,17 +15,31 @@ export class HomeCarouselAdminTableComponent implements OnInit {
   public selectedcarousels: CarouselModel[] = [];
   public carouselDialog: boolean;
   public carouselNew: CarouselModel = new CarouselModel();
-  public submitted: boolean;
+  public carouselForm: FormGroup;
 
   constructor(
     private carouselService: CarouselService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.loadcarousels();
+    this.initForm();
   }
+
+  /**
+   * @Description Initialise the carousel form
+   */
+   private initForm() {
+    this.carouselForm = this.formBuilder.group({
+      id: [""],
+      name: ["", [Validators.required]],
+      url: ["", [Validators.required]],
+    });
+  }
+
 
   /**
    * Load all carousels
@@ -42,8 +57,8 @@ export class HomeCarouselAdminTableComponent implements OnInit {
    * Open dialog for add new carousel
    */
   public openNew() {
+    this.carouselForm.reset();
     this.carouselNew = new CarouselModel();
-    this.submitted = false;
     this.carouselDialog = true;
   }
 
@@ -52,7 +67,6 @@ export class HomeCarouselAdminTableComponent implements OnInit {
    */
   public cancelDialog() {
     this.carouselNew = new CarouselModel();
-    this.submitted = false;
     this.carouselDialog = false;
   }
 
@@ -60,6 +74,7 @@ export class HomeCarouselAdminTableComponent implements OnInit {
    * Add new carousel in table
    */
   public addcarousel() {
+    this.carouselNew = this.carouselForm.value;
     this.carouselService
       .createCarousel(this.carouselNew)
       .subscribe((carouselCreated: CarouselModel) => {
@@ -81,6 +96,7 @@ export class HomeCarouselAdminTableComponent implements OnInit {
    */
   public editCarousel(carousel: CarouselModel) {
     this.carouselNew = { ...carousel };
+    this.carouselForm.setValue(carousel);
     this.carouselDialog = true;
   }
 
@@ -109,29 +125,5 @@ export class HomeCarouselAdminTableComponent implements OnInit {
         this.selectedcarousels = null;
       },
     });
-  }
-
-  /**
-   * Delete select normatives in table
-   */
-  deleteSelectedNormatives() {
-    /*this.confirmationService.confirm({
-      message: "Está seguro de borrar la normativas y objetivos seleccionados?",
-      header: "Confirmar",
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        this.normativeList = this.normativeList.filter(
-          (val) => !this.selectedNormatives.includes(val)
-        );
-
-        this.selectedNormatives = null;
-        this.messageService.add({
-          severity: "success",
-          summary: "Completado",
-          detail: "Normativas y Objetivos borrados",
-          life: 3000,
-        });
-      },
-    });*/
   }
 }

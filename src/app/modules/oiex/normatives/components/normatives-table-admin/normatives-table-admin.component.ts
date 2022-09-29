@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, OnChanges } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { NormativeModel } from "../../models/normative.model";
 import { NormativeService } from "../../services/normatives.service";
@@ -10,25 +11,35 @@ import { NormativeService } from "../../services/normatives.service";
   providers: [MessageService, ConfirmationService],
   encapsulation: ViewEncapsulation.None,
 })
-export class NormativesTableAdminComponent implements OnInit, OnChanges {
+export class NormativesTableAdminComponent implements OnInit {
   public normativeList: NormativeModel[] = [];
   public selectedNormatives: NormativeModel[] = [];
   public normativeDialog: boolean;
   public normativeNew: NormativeModel = new NormativeModel();
-  public submitted: boolean;
+  public normativeForm: FormGroup;
 
   constructor(
     private normativeService: NormativeService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.loadNormatives();
+    this.initForm();
   }
 
-  ngOnChanges(): void {
-    this.loadNormatives();
+  /**
+   * @Description Initialise the normatives form
+   */
+   private initForm() {
+    this.normativeForm = this.formBuilder.group({
+      id: [""],
+      name: ["", [Validators.required]],
+      description: ["", [Validators.required]],
+      position: ["", [Validators.required]],
+    });
   }
 
   /**
@@ -48,7 +59,7 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
    */
   public openNew() {
     this.normativeNew = new NormativeModel();
-    this.submitted = false;
+    this.normativeForm.reset();
     this.normativeDialog = true;
   }
 
@@ -57,7 +68,6 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
    */
   public cancelDialog() {
     this.normativeNew = new NormativeModel();
-    this.submitted = false;
     this.normativeDialog = false;
   }
 
@@ -65,6 +75,7 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
  * Add new normative in table
  */
   public addNormative() {
+    this.normativeNew = this.normativeForm.value;
     this.normativeService
       .createNormative(this.normativeNew)
       .subscribe((normativeCreated: NormativeModel) => {
@@ -85,6 +96,7 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
    * @param normative To edit
    */
   public editNormative(normative: NormativeModel) {
+    this.normativeForm.setValue(normative);
     this.normativeNew = { ...normative };
     this.normativeDialog = true;
   }
@@ -128,7 +140,6 @@ export class NormativesTableAdminComponent implements OnInit, OnChanges {
         this.normativeList = this.normativeList.filter(
           (val) => !this.selectedNormatives.includes(val)
         );
-
         this.selectedNormatives = null;
         this.messageService.add({
           severity: "success",

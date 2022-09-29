@@ -4,7 +4,7 @@ import { RegisterPersonComponent } from "./register-person.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { ThemeModule } from "src/app/modules/theme.module";
 import { InputTextModule } from "primeng/inputtext";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PanelModule } from "primeng/panel";
 import { ButtonModule } from "primeng/button";
 import { CalendarModule } from "primeng/calendar";
@@ -20,6 +20,7 @@ import { CalendarModule } from "primeng/calendar";
     PanelModule,
     ButtonModule,
     CalendarModule,
+    ReactiveFormsModule,
   ],
   exports: [RegisterPersonComponent],
 })

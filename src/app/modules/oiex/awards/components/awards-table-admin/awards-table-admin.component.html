@@ -4,7 +4,6 @@
     <p-toolbar styleClass="m-2">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <!--<button pButton pRipple [label]="Borrar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>-->
         </ng-template>
     </p-toolbar>
 
@@ -48,9 +47,8 @@
                 <td>{{ award.name }}</td>
                 <td>{{ award.description }}</td>
                 <td><img [src]="award.image" [alt]="award.name" class="image-td" /></td>
-                <!--<td>{{ award.image }}</td>-->
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editAward(award)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteAward(award)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteAward(award)"></button>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -63,63 +61,82 @@
 
 <p-dialog [(visible)]="awardDialog" [style]="{ width: '900px' }" header="Formulario de Premio" [modal]="true">
     <ng-template pTemplate="content">
-        <div class="grid formgrid p-fluid">
-            <!--<img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image" />-->
-            <div class="col-2 p-1 field">
-                <label for="position" class="block">{{
-          "GLOBAL.POSITION" | translate
-        }}</label>
-                <input id="position" type="text" name="position" [placeholder]="'GLOBAL.POSITION' | translate" [(ngModel)]="awardNew.position" pInputText />
-                <small class="p-error" *ngIf="submitted && !awardNew.position">La posición del premio es obligatoria</small
-        >
-      </div>
-      <div class="col-10 p-1 field">
-        <label for="titulo" class="block">{{
-          "GLOBAL.TITLE" | translate
-        }}</label>
-        <input
-          id="titulo"
-          type="text"
-          name="titulo"
-          [placeholder]="'GLOBAL.TITLE' | translate"
-          [(ngModel)]="awardNew.name"
-          pInputText
-        />
-        <small class="p-error" *ngIf="submitted && !awardNew.name"
-          >El título es obligatoria</small
-        >
-      </div>
-      <div class="col-12 p-1 field">
-        <label for="image" class="block">{{
-          "GLOBAL.URL_IMAGE" | translate
-        }}</label>
-        <input
-          id="image"
-          type="text"
-          name="image"
-          [placeholder]="'GLOBAL.URL_IMAGE' | translate"
-          [(ngModel)]="awardNew.image"
-          pInputText
-        />
-        <small class="p-error" *ngIf="submitted && !awardNew.name"
+        <form [formGroup]="awardForm">
+            <div class="grid formgrid p-fluid">
+                <div class="col-2 p-1 field">
+                    <label for="position" class="block">{{
+            "GLOBAL.POSITION" | translate
+          }}</label>
+                    <input type="text" [placeholder]="'GLOBAL.POSITION' | translate" formControlName="position" pInputText />
+                    <small class="p-error block" *ngIf="
+            awardForm.controls.position.errors?.required &&
+            awardForm.controls.position.touched
+            ">La url es obligatoria</small
+          >
+        </div>
+        <div class="col-10 p-1 field">
+          <label for="titulo" class="block">{{
+            "GLOBAL.TITLE" | translate
+          }}</label>
+          <input
+            type="text"
+            [placeholder]="'GLOBAL.TITLE' | translate"
+            formControlName="name"
+            pInputText
+          />
+          <small
+            class="p-error block"
+            *ngIf="
+              awardForm.controls.name.errors?.required &&
+              awardForm.controls.name.touched
+            "
+            >El título es obligatorio</small
+          >
+        </div>
+        <div class="col-12 p-1 field">
+          <label for="image" class="block">{{
+            "GLOBAL.URL_IMAGE" | translate
+          }}</label>
+          <input
+            type="text"
+            [placeholder]="'GLOBAL.URL_IMAGE' | translate"
+            formControlName="image"
+            pInputText
+          />
+          <small
+          class="p-error block"
+          *ngIf="
+            awardForm.controls.image.errors?.required &&
+            awardForm.controls.image.touched
+          "
           >La url de la imagen es obligatoria</small
-        >
+          >
+        </div>
+        <div class="col-12 p-1 field">
+          <label for="description" class="block">{{
+            "GLOBAL.DESCRIPTION" | translate
+          }}</label>
+          <textarea
+            pInputTextarea
+            [placeholder]="'GLOBAL.DESCRIPTION' | translate"
+            autoResize="autoResize"
+            formControlName="description"
+          ></textarea>
+          <small class="p-error block"
+          *ngIf="
+            awardForm.controls.description.errors?.required &&
+            awardForm.controls.description.touched
+          "
+            >La descripción es obligatoria</small
+          >
+        </div>
+        <div class="col-12 align-center">
+          <small id="small_required" *ngIf="awardForm.invalid"
+            >{{'FORM.REQUIRED_MSG' | translate}}</small
+          >
+        </div>
       </div>
-      <div class="col-12 p-1 field">
-        <label for="description" class="block">{{
-          "GLOBAL.DESCRIPTION" | translate
-        }}</label>
-        <textarea
-          pInputTextarea
-          [placeholder]="'GLOBAL.DESCRIPTION' | translate"
-          [(ngModel)]="awardNew.description"
-          autoResize="autoResize"
-        ></textarea>
-        <small class="p-error" *ngIf="submitted && !awardNew.name"
-          >La descripción es obligatoria</small
-        >
-      </div>
-    </div>
+    </form>
   </ng-template>
 
   <ng-template pTemplate="footer">
@@ -128,7 +145,7 @@
       pRipple
       label="Cancel"
       icon="pi pi-times"
-      class="p-button-text"
+      class="p-button-rounded p-button-secondary"
       (click)="cancelDialog()"
     ></button>
     <button
@@ -136,7 +153,8 @@
       pRipple
       [label]="'GLOBAL.ADD' | translate"
       icon="pi pi-check"
-      class="p-button-text"
+      class="p-button-rounded"
+      [disabled]="awardForm.invalid"
       (click)="addAward()"
     ></button>
   </ng-template>

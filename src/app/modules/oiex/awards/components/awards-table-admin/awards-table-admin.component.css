@@ -2,3 +2,8 @@
     height: 5em;
     width: 5em;
 }
+
+#small_required {
+    color: red;
+    font-weight: bold;
+}

@@ -3,18 +3,12 @@
 }
 
 .imgRegister {
-    width: 300px;
-    height: 200px;
+    width: 17em;
+    height: 10em;
     margin: 20px;
 }
 
-p {
-    color: green;
-    text-decoration: underline green;
-}
-
-p:active,
-p:hover {
-    color: green;
-    cursor: pointer;
+#small_required {
+    color: red;
+    font-weight: bold;
 }

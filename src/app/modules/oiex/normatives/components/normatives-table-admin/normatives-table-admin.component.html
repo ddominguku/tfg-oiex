@@ -43,7 +43,7 @@
                 <td>{{ normative.description }}</td>
                 <td>{{ normative.position }}</td>
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editNormative(normative)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteNormative(normative)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteNormative(normative)"></button>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -56,47 +56,69 @@
 
 <p-dialog [(visible)]="normativeDialog" [style]="{ width: '900px' }" header="Formulario Normativas y Objetivos" [modal]="true">
     <ng-template pTemplate="content">
-        <div class="grid formgrid p-fluid">
-            <!--<img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image" />-->
-            <div class="col-12 p-1 field">
-                <label for="titulo" class="block">{{
-          "GLOBAL.TITLE" | translate
-        }}</label>
-                <input id="titulo" type="text" name="titulo" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="normativeNew.name" pInputText />
-                <small class="p-error" *ngIf="submitted && !normativeNew.name">El título es obligatoria</small
+        <form [formGroup]="normativeForm">
+            <div class="grid formgrid p-fluid">
+                <div class="col-12 p-1 field">
+                    <label for="titulo" class="block">{{
+            "GLOBAL.TITLE" | translate
+          }}</label>
+                    <input type="text" [placeholder]="'GLOBAL.TITLE' | translate" formControlName="name" pInputText />
+                    <small class="p-error block" *ngIf="
+          normativeForm.controls.name.errors?.required &&
+          normativeForm.controls.name.touched
+          ">El título es obligatorio</small
         >
-      </div>
-      <div class="col-12 p-1 field">
-        <label for="description" class="block">{{
-          "GLOBAL.DESCRIPTION" | translate
-        }}</label>
-        <textarea
-          pInputTextarea
-          [placeholder]="'GLOBAL.DESCRIPTION' | translate"
-          [(ngModel)]="normativeNew.description"
-          autoResize="autoResize"
-        ></textarea>
-        <small class="p-error" *ngIf="submitted && !normativeNew.name"
+        </div>
+        <div class="col-12 p-1 field">
+          <label for="description" class="block">{{
+            "GLOBAL.DESCRIPTION" | translate
+          }}</label>
+          <textarea
+            pInputTextarea
+            [placeholder]="'GLOBAL.DESCRIPTION' | translate"
+            formControlName="description"
+            autoResize="autoResize"
+          ></textarea>
+          <small
+            class="p-error block"
+            *ngIf="
+            normativeForm.controls.description.errors?.required &&
+            normativeForm.controls.description.touched
+            "
+            >La descripción es obligatoria</small
+          >
+        </div>
+        <div class="col-2 p-1 field">
+          <label for="posicion" class="block">{{
+            "GLOBAL.POSITION" | translate
+          }}</label>
+          <p-inputNumber
+            mode="decimal"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            spinnerMode="horizontal"
+            decrementButtonClass="p-button-secondary"
+            incrementButtonClass="p-button-secondary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            formControlName="position"
+          ></p-inputNumber>
+          <small
+          class="p-error block"
+          *ngIf="
+          normativeForm.controls.position.errors?.required &&
+          normativeForm.controls.position.touched
+          "
           >La descripción es obligatoria</small
         >
+        </div>
+        <div class="col-12 align-center">
+          <small id="small_required" *ngIf="normativeForm.invalid"
+            >{{'FORM.REQUIRED_MSG' | translate}}</small
+          >
+        </div>
       </div>
-      <div class="col-2 p-1 field">
-        <label for="posicion" class="block">{{
-          "GLOBAL.POSITION" | translate
-        }}</label>
-        <p-inputNumber
-          [(ngModel)]="normativeNew.position"
-          mode="decimal"
-          [showButtons]="true"
-          buttonLayout="horizontal"
-          spinnerMode="horizontal"
-          decrementButtonClass="p-button-secondary"
-          incrementButtonClass="p-button-secondary"
-          incrementButtonIcon="pi pi-plus"
-          decrementButtonIcon="pi pi-minus"
-        ></p-inputNumber>
-      </div>
-    </div>
+    </form>
   </ng-template>
 
   <ng-template pTemplate="footer">
@@ -105,7 +127,7 @@
       pRipple
       label="Cancel"
       icon="pi pi-times"
-      class="p-button-text"
+      class="p-button-rounded p-button-secondary"
       (click)="cancelDialog()"
     ></button>
     <button
@@ -113,7 +135,8 @@
       pRipple
       [label]="'GLOBAL.ADD' | translate"
       icon="pi pi-check"
-      class="p-button-text"
+      class="p-button-rounded"
+      [disabled]="normativeForm.invalid"
       (click)="addNormative()"
     ></button>
   </ng-template>

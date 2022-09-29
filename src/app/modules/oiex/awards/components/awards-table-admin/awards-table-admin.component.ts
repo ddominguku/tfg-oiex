@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { AwardsModel } from "../../models/awards.model";
 import { AwardService } from "../../services/award.service";
@@ -14,16 +15,31 @@ export class AwardsTableAdminComponent implements OnInit {
   public selectedAwards: AwardsModel[] = [];
   public awardDialog: boolean;
   public awardNew: AwardsModel = new AwardsModel();
-  public submitted: boolean;
+  public awardForm: FormGroup;
 
   constructor(
     private awardService: AwardService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.loadAwards();
+    this.initForm();
+  }
+
+  /**
+   * @Description Initialise the carousel form
+   */
+   private initForm() {
+    this.awardForm = this.formBuilder.group({
+      id: [""],
+      name: ["", [Validators.required]],
+      position: ["", [Validators.required]],
+      description: ["", [Validators.required]],
+      image: ["", [Validators.required]],
+    });
   }
 
   /**
@@ -41,7 +57,7 @@ export class AwardsTableAdminComponent implements OnInit {
    */
   public openNew() {
     this.awardNew = new AwardsModel();
-    this.submitted = false;
+    this.awardForm.reset();
     this.awardDialog = true;
   }
 
@@ -50,7 +66,6 @@ export class AwardsTableAdminComponent implements OnInit {
    */
   public cancelDialog() {
     this.awardNew = new AwardsModel();
-    this.submitted = false;
     this.awardDialog = false;
   }
 
@@ -58,6 +73,7 @@ export class AwardsTableAdminComponent implements OnInit {
    * Add new award in table
    */
   public addAward() {
+    this.awardNew = this.awardForm.value;
     this.awardService
       .createAward(this.awardNew)
       .subscribe((awardCreated: AwardsModel) => {
@@ -79,6 +95,7 @@ export class AwardsTableAdminComponent implements OnInit {
    */
   public editAward(award: AwardsModel) {
     this.awardNew = { ...award };
+    this.awardForm.setValue(award);
     this.awardDialog = true;
   }
 
@@ -107,29 +124,5 @@ export class AwardsTableAdminComponent implements OnInit {
         this.selectedAwards = null;
       },
     });
-  }
-
-  /**
-   * Delete select normatives in table
-   */
-  deleteSelectedNormatives() {
-    /*this.confirmationService.confirm({
-      message: "Está seguro de borrar la normativas y objetivos seleccionados?",
-      header: "Confirmar",
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        this.normativeList = this.normativeList.filter(
-          (val) => !this.selectedNormatives.includes(val)
-        );
-
-        this.selectedNormatives = null;
-        this.messageService.add({
-          severity: "success",
-          summary: "Completado",
-          detail: "Normativas y Objetivos borrados",
-          life: 3000,
-        });
-      },
-    });*/
   }
 }

@@ -36,9 +36,11 @@
                     <p-tableCheckbox [value]="carousel"></p-tableCheckbox>
                 </td>
                 <td>{{ carousel.name }}</td>
-                <td><img [src]="carousel.url" [alt]="carousel.name" class="image-td" /></td>
+                <td>
+                    <img [src]="carousel.url" [alt]="carousel.name" class="image-td" />
+                </td>
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success m-2" (click)="editCarousel(carousel)"></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning m-2" (click)="deleteCarousel(carousel)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-2" (click)="deleteCarousel(carousel)"></button>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -51,30 +53,45 @@
 
 <p-dialog [(visible)]="carouselDialog" [style]="{ width: '900px' }" header="Formulario del Carrusel" [modal]="true">
     <ng-template pTemplate="content">
-        <div class="grid formgrid p-fluid">
-            <div class="col-12 p-1 field">
-                <label for="name" class="block">{{
-          "GLOBAL.TITLE" | translate
-        }}</label>
-                <input id="titulo" type="text" name="titulo" [placeholder]="'GLOBAL.TITLE' | translate" [(ngModel)]="carouselNew.name" pInputText />
-                <small class="p-error" *ngIf="submitted && !carouselNew.name">El título es obligatoria</small
-        >
+        <form [formGroup]="carouselForm">
+            <div class="grid formgrid p-fluid">
+                <div class="col-12 p-1 field">
+                    <label for="name" class="block">{{
+            "GLOBAL.TITLE" | translate
+          }}</label>
+                    <input type="text" [placeholder]="'GLOBAL.TITLE' | translate" formControlName="name" pInputText />
+                    <small class="p-error block" *ngIf="
+              carouselForm.controls.name.errors?.required &&
+              carouselForm.controls.name.touched
+            ">El título es obligatorio</small
+          >
+        </div>
+        <div class="col-12 p-1 field">
+          <label for="description" class="block">{{
+            "GLOBAL.URL_IMAGE" | translate
+          }}</label>
+          <textarea
+            pInputTextarea
+            [placeholder]="'GLOBAL.URL_IMAGE' | translate"
+            autoResize="autoResize"
+            formControlName="url"
+          ></textarea>
+          <small
+            class="p-error block"
+            *ngIf="
+              carouselForm.controls.url.errors?.required &&
+              carouselForm.controls.url.touched
+            "
+            >La url es obligatoria</small
+          >
+        </div>
+        <div class="col-12 align-center">
+          <small id="small_required" *ngIf="carouselForm.invalid"
+            >{{'FORM.REQUIRED_MSG' | translate}}</small
+          >
+        </div>
       </div>
-      <div class="col-12 p-1 field">
-        <label for="description" class="block">{{
-          "GLOBAL.URL_IMAGE" | translate
-        }}</label>
-        <textarea
-          pInputTextarea
-          [placeholder]="'GLOBAL.URL_IMAGE' | translate"
-          [(ngModel)]="carouselNew.url"
-          autoResize="autoResize"
-        ></textarea>
-        <small class="p-error" *ngIf="submitted && !carouselNew.url"
-          >La url de la imagen es obligatoria</small
-        >
-      </div>
-    </div>
+    </form>
   </ng-template>
 
   <ng-template pTemplate="footer">
@@ -83,7 +100,7 @@
       pRipple
       label="Cancel"
       icon="pi pi-times"
-      class="p-button-text"
+      class="p-button-rounded p-button-secondary"
       (click)="cancelDialog()"
     ></button>
     <button
@@ -91,7 +108,8 @@
       pRipple
       [label]="'GLOBAL.ADD' | translate"
       icon="pi pi-check"
-      class="p-button-text"
+      class="p-button-rounded"
+      [disabled]="carouselForm.invalid"
       (click)="addcarousel()"
     ></button>
   </ng-template>

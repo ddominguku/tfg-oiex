@@ -5,14 +5,17 @@
 <div class="grid justify-content-center">
     <div class="col-6">
         <p-panel [header]="'PERSON.FORM.REGISTER' | translate" *ngIf="personRegister">
-            <form #personForm="ngForm">
+            <form [formGroup]="registerForm">
                 <div class="grid formgrid p-fluid">
                     <div class="col-6 p-1 field">
                         <label for="name" class="block">{{
               "GLOBAL.NAME" | translate
             }}</label>
-                        <input id="name" name="name" type="text" aria-describedby="name-help" [placeholder]="'GLOBAL.NAME' | translate" pInputText required="true" [(ngModel)]="personRegister.name" class="ng-invalid ng-dirty" />
-                        <small id="name-help" class="p-error block">Username is not available.</small
+                        <input type="text" [placeholder]="'GLOBAL.NAME' | translate" pInputText formControlName="name" />
+                        <small class="p-error block" *ngIf="
+                registerForm.controls.name.errors?.required &&
+                registerForm.controls.name.touched
+              ">El nombre es obligatorio</small
             >
           </div>
           <div class="col-6 p-1 field">
@@ -20,120 +23,186 @@
               "GLOBAL.LASTNAME1" | translate
             }}</label>
             <input
-              id="lastname1"
-              name="lastname1"
               type="text"
-              required="true"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.LASTNAME1' | translate"
               pInputText
-              [(ngModel)]="personRegister.lastname1"
+              formControlName="lastname1"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.lastname1.errors?.required &&
+                registerForm.controls.lastname1.touched
+              "
+              >El primer apellido es obligatorio</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="lastname2" class="block">{{
               "GLOBAL.LASTNAME2" | translate
             }}</label>
             <input
-              id="lastname2"
-              name="lastname"
               type="text"
-              required="true"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.LASTNAME2' | translate"
               pInputText
-              [(ngModel)]="personRegister.lastname2"
+              formControlName="lastname2"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.lastname2.errors?.required &&
+                registerForm.controls.lastname2.touched
+              "
+              >El segundo apellido es obligatorio</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="email" class="block">{{
               "GLOBAL.EMAIL" | translate
             }}</label>
             <input
-              id="email"
-              name="email"
-              type="text"
-              required="true"
-              aria-describedby="username1-help"
+              type="email"
               [placeholder]="'GLOBAL.EMAIL' | translate"
+              formControlName="email"
               pInputText
-              [(ngModel)]="personRegister.email"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.email.errors?.required &&
+                registerForm.controls.email.touched
+              "
+              >El email es obligatorio</small
+            >
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.email.errors?.pattern &&
+                registerForm.controls.email.touched
+              "
+              >El formato del email no es correcto</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="birthdate">{{ "GLOBAL.BIRTHDATE" | translate }}</label>
             <p-calendar
-            required="true"
-              name="birthdate"
-              [(ngModel)]="birthdate"
               dateFormat="dd/mm/yy"
+              formControlName="birthdate"
+              [placeholder]="'GLOBAL.BIRTHDATE' | translate"
             ></p-calendar>
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.birthdate.errors?.required &&
+                registerForm.controls.birthdate.touched
+              "
+              >La fecha de nacimiento es obligatoria</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="center" class="block">{{
               "GLOBAL.CENTER" | translate
             }}</label>
             <input
-              id="center"
-              name="center"
-              required="true"
               type="text"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.CENTER' | translate"
+              formControlName="center"
               pInputText
-              [(ngModel)]="personRegister.center"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.center.errors?.required &&
+                registerForm.controls.center.touched
+              "
+              >El centro es obligatorio</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="phone" class="block">{{
               "GLOBAL.PHONE_NUMBER" | translate
             }}</label>
             <input
-              id="phone"
-              required="true"
-              name="phone"
               type="number"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.PHONE_NUMBER' | translate"
+              formControlName="phone"
               pInputText
-              [(ngModel)]="personRegister.phone"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.phone.errors?.required &&
+                registerForm.controls.phone.touched
+              "
+              >El teléfono es obligatorio</small
+            >
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.phone.errors?.pattern &&
+                registerForm.controls.phone.touched
+              "
+              >El teléfono tiene que tener 9 dígitos</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="teacherName" class="block">{{
               "GLOBAL.TEACHER_NAME" | translate
             }}</label>
             <input
-              id="teacherName"
-              name="teacherName"
               type="text"
-              required="true"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.TEACHER_NAME' | translate"
               pInputText
-              [(ngModel)]="personRegister.teacherName"
+              formControlName="teacherName"
+              pInputText
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.teacherName.errors?.required &&
+                registerForm.controls.teacherName.touched
+              "
+              >El profesor es obligatorio</small
+            >
           </div>
           <div class="col-6 p-1 field">
             <label for="teacherEmail" class="block">{{
               "GLOBAL.TEACHER_EMAIL" | translate
             }}</label>
             <input
-              id="teacherEmail"
-              name="teacherEmail"
               type="text"
-              required="true"
-              aria-describedby="username1-help"
               [placeholder]="'GLOBAL.TEACHER_EMAIL' | translate"
+              formControlName="teacherEmail"
               pInputText
-              [(ngModel)]="personRegister.teacherEmail"
             />
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.teacherEmail.errors?.required &&
+                registerForm.controls.teacherEmail.touched
+              "
+              >El email del profesor es obligatorio</small
+            >
+            <small
+              class="p-error block"
+              *ngIf="
+                registerForm.controls.teacherEmail.errors?.pattern &&
+                registerForm.controls.teacherEmail.touched
+              "
+              >El formato no es correcto</small
+            >
+          </div>
+          <div class="col-12 align-center">
+            <small id="small_required" *ngIf="registerForm.invalid"
+              >¡Es obligatorio rellenar todos los campos con el formato
+              correcto!</small
+            >
           </div>
           <div class="col-12 p-1 align-center">
             <the-button
               [label]="'GLOBAL.INSCRIPTION' | translate"
               (onClick)="register()"
-              [disabled]="personForm.invalid"
+              [disabled]="registerForm.invalid"
             ></the-button>
           </div>
         </div>
